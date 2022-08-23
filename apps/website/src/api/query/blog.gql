@@ -1,0 +1,7 @@
+#import ./fragment/post/blog.gql
+
+query Blog($type: String, $locale: I18NLocaleCode) {
+  posts(locale: $locale, filters: { type: { eq: $type } }, sort: "updatedAt:desc") {
+    ...PostBlogEntities
+  }
+}

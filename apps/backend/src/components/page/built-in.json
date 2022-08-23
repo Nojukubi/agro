@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_page_built_ins",
+  "info": {
+    "displayName": "BuiltIn",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "enumeration",
+      "enum": [
+        "documents",
+        "faq",
+        "media"
+      ],
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,34 @@
+#import ./fragment/post/blog.gql
+#import ./fragment/block/entity.gql
+
+query Home($locale: I18NLocaleCode) {
+  home(locale: $locale) {
+    data {
+      attributes {
+        main {
+          block {
+            ...BlockWrapper
+          }
+        }
+        highlight {
+          block {
+            ...BlockWrapper
+          }
+        }
+        other {
+          block {
+            ...BlockWrapper
+          }
+        }
+      }
+    }
+  }
+
+  news: posts(locale: $locale, filters: { type: { eq: "News" } }, sort: "createdAt", pagination: { limit: 2 }) {
+    ...PostBlogEntities
+  }
+
+  agti: posts(locale: $locale, filters: { type: { eq: "AGTI" } }, sort: "createdAt", pagination: { limit: 2 }) {
+    ...PostBlogEntities
+  }
+}

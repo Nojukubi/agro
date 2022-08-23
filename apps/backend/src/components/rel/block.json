@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_relation_blocks",
+  "info": {
+    "displayName": "Block",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "block": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::block.block"
+    }
+  }
+}

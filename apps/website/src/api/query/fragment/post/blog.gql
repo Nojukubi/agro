@@ -1,0 +1,19 @@
+#import ../file/entity.gql
+
+fragment PostBlog on Post {
+  text
+  short
+  createdAt
+  image {
+    ...FileWrapper
+  }
+}
+
+fragment PostBlogEntities on PostEntityResponseCollection {
+  data {
+    id
+    attributes {
+      ...PostBlog
+    }
+  }
+}

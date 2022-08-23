@@ -1,0 +1,19 @@
+fragment PageConfig on Page {
+  name
+  path
+  blog {
+    tag
+  }
+  static {
+    id
+  }
+}
+
+fragment PageConfigEntities on PageEntityResponseCollection {
+  data {
+    id
+    attributes {
+      ...PageConfig
+    }
+  }
+}

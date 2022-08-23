@@ -1,0 +1,1605 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+union BlockActionsDynamicZone = ComponentLinkHref | ComponentLinkRoute | ComponentLinkSocial | Error
+
+union DocFilesDynamicZone = ComponentLinkHref | Error
+
+union FooterLinksDynamicZone = ComponentLinkRoute | ComponentLinkSocial | Error
+
+union GenericMorph = Block | ComponentLinkHref | ComponentLinkRoute | ComponentLinkSocial | ComponentLinkText | ComponentPageBlog | ComponentPageBuiltIn | ComponentPageContent | ComponentRelBlock | ComponentRelPage | ComponentVideoYouTube | Doc | Faq | Footer | Home | I18NLocale | Lang | Media | Nav | Page | Post | Social | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+
+type Block {
+  actions: [BlockActionsDynamicZone]
+  align_actions: ENUM_BLOCK_ALIGN_ACTIONS
+  align_content: ENUM_BLOCK_ALIGN_CONTENT
+  content: String!
+  createdAt: DateTime
+  image: UploadFileEntityResponse
+  locale: String
+  localizations(filters: BlockFiltersInput, pagination: PaginationArg, sort: [String]): BlockRelationResponseCollection
+  name: String!
+  type: ENUM_BLOCK_TYPE!
+  updatedAt: DateTime
+  video: ComponentVideoYouTube
+  width: Int
+}
+
+type BlockEntity {
+  attributes: Block
+  id: ID
+}
+
+type BlockEntityResponse {
+  data: BlockEntity
+}
+
+type BlockEntityResponseCollection {
+  data: [BlockEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type BlockRelationResponseCollection {
+  data: [BlockEntity!]!
+}
+
+type ComponentLinkHref {
+  id: ID!
+  style: ComponentLinkText
+  text: String!
+  url: String!
+}
+
+type ComponentLinkRoute {
+  builtin: ComponentPageBuiltIn
+  custom: ComponentRelPage
+  id: ID!
+  style: ComponentLinkText
+  text: String!
+}
+
+type ComponentLinkSocial {
+  icon: Boolean
+  id: ID!
+  social: SocialEntityResponse
+  style: ComponentLinkText
+  text: String!
+}
+
+type ComponentLinkText {
+  background: ENUM_COMPONENTLINKTEXT_BACKGROUND
+  color: ENUM_COMPONENTLINKTEXT_COLOR
+  id: ID!
+  underline: Boolean
+  uppercase: Boolean
+}
+
+type ComponentPageBlog {
+  id: ID!
+  tag: ENUM_COMPONENTPAGEBLOG_TAG
+  text: String!
+}
+
+type ComponentPageBuiltIn {
+  id: ID!
+  name: ENUM_COMPONENTPAGEBUILTIN_NAME!
+}
+
+type ComponentPageContent {
+  content: String!
+  id: ID!
+}
+
+type ComponentRelBlock {
+  block: BlockEntityResponse
+  id: ID!
+}
+
+type ComponentRelPage {
+  id: ID!
+  page: PageEntityResponse
+}
+
+type ComponentVideoYouTube {
+  id: ID!
+  url: String!
+}
+
+type Doc {
+  category: String!
+  createdAt: DateTime
+  files: [DocFilesDynamicZone]!
+  locale: String
+  localizations(filters: DocFiltersInput, pagination: PaginationArg, sort: [String]): DocRelationResponseCollection
+  updatedAt: DateTime
+}
+
+type DocEntity {
+  attributes: Doc
+  id: ID
+}
+
+type DocEntityResponse {
+  data: DocEntity
+}
+
+type DocEntityResponseCollection {
+  data: [DocEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type DocRelationResponseCollection {
+  data: [DocEntity!]!
+}
+
+type Error {
+  code: String!
+  message: String
+}
+
+type Faq {
+  answer: String!
+  createdAt: DateTime
+  locale: String
+  localizations(filters: FaqFiltersInput, pagination: PaginationArg, sort: [String]): FaqRelationResponseCollection
+  question: String!
+  updatedAt: DateTime
+}
+
+type FaqEntity {
+  attributes: Faq
+  id: ID
+}
+
+type FaqEntityResponse {
+  data: FaqEntity
+}
+
+type FaqEntityResponseCollection {
+  data: [FaqEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type FaqRelationResponseCollection {
+  data: [FaqEntity!]!
+}
+
+type Footer {
+  createdAt: DateTime
+  links: [FooterLinksDynamicZone]
+  locale: String
+  localizations: FooterRelationResponseCollection
+  updatedAt: DateTime
+}
+
+type FooterEntity {
+  attributes: Footer
+  id: ID
+}
+
+type FooterEntityResponse {
+  data: FooterEntity
+}
+
+type FooterRelationResponseCollection {
+  data: [FooterEntity!]!
+}
+
+type Home {
+  createdAt: DateTime
+  highlight(filters: ComponentRelBlockFiltersInput, pagination: PaginationArg, sort: [String]): [ComponentRelBlock]
+  locale: String
+  localizations: HomeRelationResponseCollection
+  main: ComponentRelBlock
+  other(filters: ComponentRelBlockFiltersInput, pagination: PaginationArg, sort: [String]): [ComponentRelBlock]
+  updatedAt: DateTime
+}
+
+type HomeEntity {
+  attributes: Home
+  id: ID
+}
+
+type HomeEntityResponse {
+  data: HomeEntity
+}
+
+type HomeRelationResponseCollection {
+  data: [HomeEntity!]!
+}
+
+type I18NLocale {
+  code: String
+  createdAt: DateTime
+  name: String
+  updatedAt: DateTime
+}
+
+type I18NLocaleEntity {
+  attributes: I18NLocale
+  id: ID
+}
+
+type I18NLocaleEntityResponse {
+  data: I18NLocaleEntity
+}
+
+type I18NLocaleEntityResponseCollection {
+  data: [I18NLocaleEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type Lang {
+  code: String!
+  createdAt: DateTime
+  enabled: Boolean!
+  order: Int!
+  text: String!
+  updatedAt: DateTime
+}
+
+type LangEntity {
+  attributes: Lang
+  id: ID
+}
+
+type LangEntityResponse {
+  data: LangEntity
+}
+
+type LangEntityResponseCollection {
+  data: [LangEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type Media {
+  createdAt: DateTime
+  enabled: Boolean!
+  image: UploadFileEntityResponse!
+  link: ComponentLinkHref!
+  updatedAt: DateTime
+}
+
+type MediaEntity {
+  attributes: Media
+  id: ID
+}
+
+type MediaEntityResponse {
+  data: MediaEntity
+}
+
+type MediaEntityResponseCollection {
+  data: [MediaEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type Mutation {
+  "Change user password. Confirm with the current password."
+  changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  createBlock(data: BlockInput!, locale: I18NLocaleCode): BlockEntityResponse
+  createBlockLocalization(data: BlockInput, id: ID, locale: I18NLocaleCode): BlockEntityResponse
+  createDoc(data: DocInput!, locale: I18NLocaleCode): DocEntityResponse
+  createDocLocalization(data: DocInput, id: ID, locale: I18NLocaleCode): DocEntityResponse
+  createFaq(data: FaqInput!, locale: I18NLocaleCode): FaqEntityResponse
+  createFaqLocalization(data: FaqInput, id: ID, locale: I18NLocaleCode): FaqEntityResponse
+  createFooterLocalization(data: FooterInput, id: ID, locale: I18NLocaleCode): FooterEntityResponse
+  createHomeLocalization(data: HomeInput, id: ID, locale: I18NLocaleCode): HomeEntityResponse
+  createLang(data: LangInput!): LangEntityResponse
+  createMedia(data: MediaInput!): MediaEntityResponse
+  createNav(data: NavInput!, locale: I18NLocaleCode): NavEntityResponse
+  createNavLocalization(data: NavInput, id: ID, locale: I18NLocaleCode): NavEntityResponse
+  createPage(data: PageInput!, locale: I18NLocaleCode): PageEntityResponse
+  createPageLocalization(data: PageInput, id: ID, locale: I18NLocaleCode): PageEntityResponse
+  createPost(data: PostInput!, locale: I18NLocaleCode): PostEntityResponse
+  createPostLocalization(data: PostInput, id: ID, locale: I18NLocaleCode): PostEntityResponse
+  createSocial(data: SocialInput!): SocialEntityResponse
+  createUploadFile(data: UploadFileInput!): UploadFileEntityResponse
+  createUploadFolder(data: UploadFolderInput!): UploadFolderEntityResponse
+  "Create a new role"
+  createUsersPermissionsRole(data: UsersPermissionsRoleInput!): UsersPermissionsCreateRolePayload
+  "Create a new user"
+  createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
+  deleteBlock(id: ID!, locale: I18NLocaleCode): BlockEntityResponse
+  deleteDoc(id: ID!, locale: I18NLocaleCode): DocEntityResponse
+  deleteFaq(id: ID!, locale: I18NLocaleCode): FaqEntityResponse
+  deleteFooter(locale: I18NLocaleCode): FooterEntityResponse
+  deleteHome(locale: I18NLocaleCode): HomeEntityResponse
+  deleteLang(id: ID!): LangEntityResponse
+  deleteMedia(id: ID!): MediaEntityResponse
+  deleteNav(id: ID!, locale: I18NLocaleCode): NavEntityResponse
+  deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
+  deletePost(id: ID!, locale: I18NLocaleCode): PostEntityResponse
+  deleteSocial(id: ID!): SocialEntityResponse
+  deleteUploadFile(id: ID!): UploadFileEntityResponse
+  deleteUploadFolder(id: ID!): UploadFolderEntityResponse
+  "Delete an existing role"
+  deleteUsersPermissionsRole(id: ID!): UsersPermissionsDeleteRolePayload
+  "Delete an existing user"
+  deleteUsersPermissionsUser(id: ID!): UsersPermissionsUserEntityResponse!
+  "Confirm an email users email address"
+  emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+  "Request a reset password token"
+  forgotPassword(email: String!): UsersPermissionsPasswordPayload
+  login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
+  multipleUpload(field: String, files: [Upload]!, ref: String, refId: ID): [UploadFileEntityResponse]!
+  "Register a user"
+  register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
+  removeFile(id: ID!): UploadFileEntityResponse
+  "Reset user password. Confirm with a code (resetToken from forgotPassword)"
+  resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  updateBlock(data: BlockInput!, id: ID!, locale: I18NLocaleCode): BlockEntityResponse
+  updateDoc(data: DocInput!, id: ID!, locale: I18NLocaleCode): DocEntityResponse
+  updateFaq(data: FaqInput!, id: ID!, locale: I18NLocaleCode): FaqEntityResponse
+  updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
+  updateFooter(data: FooterInput!, locale: I18NLocaleCode): FooterEntityResponse
+  updateHome(data: HomeInput!, locale: I18NLocaleCode): HomeEntityResponse
+  updateLang(data: LangInput!, id: ID!): LangEntityResponse
+  updateMedia(data: MediaInput!, id: ID!): MediaEntityResponse
+  updateNav(data: NavInput!, id: ID!, locale: I18NLocaleCode): NavEntityResponse
+  updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
+  updatePost(data: PostInput!, id: ID!, locale: I18NLocaleCode): PostEntityResponse
+  updateSocial(data: SocialInput!, id: ID!): SocialEntityResponse
+  updateUploadFile(data: UploadFileInput!, id: ID!): UploadFileEntityResponse
+  updateUploadFolder(data: UploadFolderInput!, id: ID!): UploadFolderEntityResponse
+  "Update an existing role"
+  updateUsersPermissionsRole(data: UsersPermissionsRoleInput!, id: ID!): UsersPermissionsUpdateRolePayload
+  "Update an existing user"
+  updateUsersPermissionsUser(data: UsersPermissionsUserInput!, id: ID!): UsersPermissionsUserEntityResponse!
+  upload(field: String, file: Upload!, info: FileInfoInput, ref: String, refId: ID): UploadFileEntityResponse!
+}
+
+type Nav {
+  builtin: ComponentPageBuiltIn
+  createdAt: DateTime
+  custom: ComponentRelPage
+  locale: String
+  localizations(filters: NavFiltersInput, pagination: PaginationArg, sort: [String]): NavRelationResponseCollection
+  text: String!
+  updatedAt: DateTime
+}
+
+type NavEntity {
+  attributes: Nav
+  id: ID
+}
+
+type NavEntityResponse {
+  data: NavEntity
+}
+
+type NavEntityResponseCollection {
+  data: [NavEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type NavRelationResponseCollection {
+  data: [NavEntity!]!
+}
+
+type Page {
+  blog: ComponentPageBlog
+  createdAt: DateTime
+  locale: String
+  localizations(filters: PageFiltersInput, pagination: PaginationArg, sort: [String]): PageRelationResponseCollection
+  name: String!
+  path: String!
+  static: ComponentPageContent
+  updatedAt: DateTime
+}
+
+type PageEntity {
+  attributes: Page
+  id: ID
+}
+
+type PageEntityResponse {
+  data: PageEntity
+}
+
+type PageEntityResponseCollection {
+  data: [PageEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type PageRelationResponseCollection {
+  data: [PageEntity!]!
+}
+
+type Pagination {
+  page: Int!
+  pageCount: Int!
+  pageSize: Int!
+  total: Int!
+}
+
+type Post {
+  content: String!
+  createdAt: DateTime
+  image: UploadFileEntityResponse
+  locale: String
+  localizations(filters: PostFiltersInput, pagination: PaginationArg, sort: [String]): PostRelationResponseCollection
+  short: String
+  text: String!
+  type: ENUM_POST_TYPE!
+  updatedAt: DateTime
+}
+
+type PostEntity {
+  attributes: Post
+  id: ID
+}
+
+type PostEntityResponse {
+  data: PostEntity
+}
+
+type PostEntityResponseCollection {
+  data: [PostEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type PostRelationResponseCollection {
+  data: [PostEntity!]!
+}
+
+type Query {
+  block(id: ID, locale: I18NLocaleCode): BlockEntityResponse
+  blocks(filters: BlockFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): BlockEntityResponseCollection
+  doc(id: ID, locale: I18NLocaleCode): DocEntityResponse
+  docs(filters: DocFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): DocEntityResponseCollection
+  faq(id: ID, locale: I18NLocaleCode): FaqEntityResponse
+  faqs(filters: FaqFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): FaqEntityResponseCollection
+  footer(locale: I18NLocaleCode): FooterEntityResponse
+  home(locale: I18NLocaleCode): HomeEntityResponse
+  i18NLocale(id: ID): I18NLocaleEntityResponse
+  i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg, sort: [String]): I18NLocaleEntityResponseCollection
+  lang(id: ID): LangEntityResponse
+  langs(filters: LangFiltersInput, pagination: PaginationArg, sort: [String]): LangEntityResponseCollection
+  me: UsersPermissionsMe
+  media(id: ID): MediaEntityResponse
+  medias(filters: MediaFiltersInput, pagination: PaginationArg, sort: [String]): MediaEntityResponseCollection
+  nav(id: ID, locale: I18NLocaleCode): NavEntityResponse
+  navs(filters: NavFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): NavEntityResponseCollection
+  page(id: ID, locale: I18NLocaleCode): PageEntityResponse
+  pages(filters: PageFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): PageEntityResponseCollection
+  post(id: ID, locale: I18NLocaleCode): PostEntityResponse
+  posts(filters: PostFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): PostEntityResponseCollection
+  social(id: ID): SocialEntityResponse
+  socials(filters: SocialFiltersInput, pagination: PaginationArg, sort: [String]): SocialEntityResponseCollection
+  uploadFile(id: ID): UploadFileEntityResponse
+  uploadFiles(filters: UploadFileFiltersInput, pagination: PaginationArg, sort: [String]): UploadFileEntityResponseCollection
+  uploadFolder(id: ID): UploadFolderEntityResponse
+  uploadFolders(filters: UploadFolderFiltersInput, pagination: PaginationArg, sort: [String]): UploadFolderEntityResponseCollection
+  usersPermissionsRole(id: ID): UsersPermissionsRoleEntityResponse
+  usersPermissionsRoles(filters: UsersPermissionsRoleFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsRoleEntityResponseCollection
+  usersPermissionsUser(id: ID): UsersPermissionsUserEntityResponse
+  usersPermissionsUsers(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsUserEntityResponseCollection
+}
+
+type ResponseCollectionMeta {
+  pagination: Pagination!
+}
+
+type Social {
+  createdAt: DateTime
+  icon: UploadFileEntityResponse!
+  name: String!
+  updatedAt: DateTime
+  url: String!
+}
+
+type SocialEntity {
+  attributes: Social
+  id: ID
+}
+
+type SocialEntityResponse {
+  data: SocialEntity
+}
+
+type SocialEntityResponseCollection {
+  data: [SocialEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UploadFile {
+  alternativeText: String
+  caption: String
+  createdAt: DateTime
+  ext: String
+  formats: JSON
+  hash: String!
+  height: Int
+  mime: String!
+  name: String!
+  previewUrl: String
+  provider: String!
+  provider_metadata: JSON
+  related: [GenericMorph]
+  size: Float!
+  updatedAt: DateTime
+  url: String!
+  width: Int
+}
+
+type UploadFileEntity {
+  attributes: UploadFile
+  id: ID
+}
+
+type UploadFileEntityResponse {
+  data: UploadFileEntity
+}
+
+type UploadFileEntityResponseCollection {
+  data: [UploadFileEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UploadFileRelationResponseCollection {
+  data: [UploadFileEntity!]!
+}
+
+type UploadFolder {
+  children(filters: UploadFolderFiltersInput, pagination: PaginationArg, sort: [String]): UploadFolderRelationResponseCollection
+  createdAt: DateTime
+  files(filters: UploadFileFiltersInput, pagination: PaginationArg, sort: [String]): UploadFileRelationResponseCollection
+  name: String!
+  parent: UploadFolderEntityResponse
+  path: String!
+  pathId: Int!
+  updatedAt: DateTime
+}
+
+type UploadFolderEntity {
+  attributes: UploadFolder
+  id: ID
+}
+
+type UploadFolderEntityResponse {
+  data: UploadFolderEntity
+}
+
+type UploadFolderEntityResponseCollection {
+  data: [UploadFolderEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UploadFolderRelationResponseCollection {
+  data: [UploadFolderEntity!]!
+}
+
+type UsersPermissionsCreateRolePayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsDeleteRolePayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsLoginPayload {
+  jwt: String
+  user: UsersPermissionsMe!
+}
+
+type UsersPermissionsMe {
+  blocked: Boolean
+  confirmed: Boolean
+  email: String
+  id: ID!
+  role: UsersPermissionsMeRole
+  username: String!
+}
+
+type UsersPermissionsMeRole {
+  description: String
+  id: ID!
+  name: String!
+  type: String
+}
+
+type UsersPermissionsPasswordPayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsPermission {
+  action: String!
+  createdAt: DateTime
+  role: UsersPermissionsRoleEntityResponse
+  updatedAt: DateTime
+}
+
+type UsersPermissionsPermissionEntity {
+  attributes: UsersPermissionsPermission
+  id: ID
+}
+
+type UsersPermissionsPermissionRelationResponseCollection {
+  data: [UsersPermissionsPermissionEntity!]!
+}
+
+type UsersPermissionsRole {
+  createdAt: DateTime
+  description: String
+  name: String!
+  permissions(filters: UsersPermissionsPermissionFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsPermissionRelationResponseCollection
+  type: String
+  updatedAt: DateTime
+  users(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsUserRelationResponseCollection
+}
+
+type UsersPermissionsRoleEntity {
+  attributes: UsersPermissionsRole
+  id: ID
+}
+
+type UsersPermissionsRoleEntityResponse {
+  data: UsersPermissionsRoleEntity
+}
+
+type UsersPermissionsRoleEntityResponseCollection {
+  data: [UsersPermissionsRoleEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UsersPermissionsUpdateRolePayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsUser {
+  blocked: Boolean
+  confirmed: Boolean
+  createdAt: DateTime
+  email: String!
+  provider: String
+  role: UsersPermissionsRoleEntityResponse
+  updatedAt: DateTime
+  username: String!
+}
+
+type UsersPermissionsUserEntity {
+  attributes: UsersPermissionsUser
+  id: ID
+}
+
+type UsersPermissionsUserEntityResponse {
+  data: UsersPermissionsUserEntity
+}
+
+type UsersPermissionsUserEntityResponseCollection {
+  data: [UsersPermissionsUserEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UsersPermissionsUserRelationResponseCollection {
+  data: [UsersPermissionsUserEntity!]!
+}
+
+enum ENUM_BLOCK_ALIGN_ACTIONS {
+  center
+  left
+  right
+}
+
+enum ENUM_BLOCK_ALIGN_CONTENT {
+  center
+  left
+  right
+}
+
+enum ENUM_BLOCK_TYPE {
+  Cover
+  Side
+}
+
+enum ENUM_COMPONENTLINKTEXT_BACKGROUND {
+  black
+  blue
+  blue_1
+  blue_10
+  blue_2
+  blue_3
+  blue_4
+  blue_5
+  blue_6
+  blue_7
+  blue_8
+  blue_9
+  brown
+  brown_1
+  brown_10
+  brown_11
+  brown_12
+  brown_13
+  brown_14
+  brown_2
+  brown_3
+  brown_4
+  brown_5
+  brown_6
+  brown_7
+  brown_8
+  brown_9
+  green
+  green_1
+  green_10
+  green_2
+  green_3
+  green_4
+  green_5
+  green_6
+  green_7
+  green_8
+  green_9
+  grey
+  grey_1
+  grey_10
+  grey_11
+  grey_12
+  grey_13
+  grey_14
+  grey_2
+  grey_3
+  grey_4
+  grey_5
+  grey_6
+  grey_7
+  grey_8
+  grey_9
+  indigo
+  indigo_1
+  indigo_10
+  indigo_2
+  indigo_3
+  indigo_4
+  indigo_5
+  indigo_6
+  indigo_7
+  indigo_8
+  indigo_9
+  orange
+  orange_1
+  orange_10
+  orange_2
+  orange_3
+  orange_4
+  orange_5
+  orange_6
+  orange_7
+  orange_8
+  orange_9
+  purple
+  purple_1
+  purple_10
+  purple_2
+  purple_3
+  purple_4
+  purple_5
+  purple_6
+  purple_7
+  purple_8
+  purple_9
+  red
+  red_1
+  red_10
+  red_2
+  red_3
+  red_4
+  red_5
+  red_6
+  red_7
+  red_8
+  red_9
+  teal
+  teal_1
+  teal_10
+  teal_2
+  teal_3
+  teal_4
+  teal_5
+  teal_6
+  teal_7
+  teal_8
+  teal_9
+  transparent
+  white
+}
+
+enum ENUM_COMPONENTLINKTEXT_COLOR {
+  black
+  blue
+  blue_1
+  blue_10
+  blue_2
+  blue_3
+  blue_4
+  blue_5
+  blue_6
+  blue_7
+  blue_8
+  blue_9
+  brown
+  brown_1
+  brown_10
+  brown_11
+  brown_12
+  brown_13
+  brown_14
+  brown_2
+  brown_3
+  brown_4
+  brown_5
+  brown_6
+  brown_7
+  brown_8
+  brown_9
+  green
+  green_1
+  green_10
+  green_2
+  green_3
+  green_4
+  green_5
+  green_6
+  green_7
+  green_8
+  green_9
+  grey
+  grey_1
+  grey_10
+  grey_11
+  grey_12
+  grey_13
+  grey_14
+  grey_2
+  grey_3
+  grey_4
+  grey_5
+  grey_6
+  grey_7
+  grey_8
+  grey_9
+  indigo
+  indigo_1
+  indigo_10
+  indigo_2
+  indigo_3
+  indigo_4
+  indigo_5
+  indigo_6
+  indigo_7
+  indigo_8
+  indigo_9
+  orange
+  orange_1
+  orange_10
+  orange_2
+  orange_3
+  orange_4
+  orange_5
+  orange_6
+  orange_7
+  orange_8
+  orange_9
+  purple
+  purple_1
+  purple_10
+  purple_2
+  purple_3
+  purple_4
+  purple_5
+  purple_6
+  purple_7
+  purple_8
+  purple_9
+  red
+  red_1
+  red_10
+  red_2
+  red_3
+  red_4
+  red_5
+  red_6
+  red_7
+  red_8
+  red_9
+  teal
+  teal_1
+  teal_10
+  teal_2
+  teal_3
+  teal_4
+  teal_5
+  teal_6
+  teal_7
+  teal_8
+  teal_9
+  transparent
+  white
+}
+
+enum ENUM_COMPONENTPAGEBLOG_TAG {
+  AGTI
+  News
+}
+
+enum ENUM_COMPONENTPAGEBUILTIN_NAME {
+  documents
+  faq
+  media
+}
+
+enum ENUM_POST_TYPE {
+  AGTI
+  News
+}
+
+scalar BlockActionsDynamicZoneInput
+
+"A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
+scalar DateTime
+
+scalar DocFilesDynamicZoneInput
+
+scalar FooterLinksDynamicZoneInput
+
+"A string used to identify an i18n locale"
+scalar I18NLocaleCode
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSON
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
+
+input BlockFiltersInput {
+  align_actions: StringFilterInput
+  align_content: StringFilterInput
+  and: [BlockFiltersInput]
+  content: StringFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  locale: StringFilterInput
+  localizations: BlockFiltersInput
+  name: StringFilterInput
+  not: BlockFiltersInput
+  or: [BlockFiltersInput]
+  type: StringFilterInput
+  updatedAt: DateTimeFilterInput
+  video: ComponentVideoYouTubeFiltersInput
+  width: IntFilterInput
+}
+
+input BlockInput {
+  actions: [BlockActionsDynamicZoneInput!]
+  align_actions: ENUM_BLOCK_ALIGN_ACTIONS
+  align_content: ENUM_BLOCK_ALIGN_CONTENT
+  content: String
+  image: ID
+  name: String
+  type: ENUM_BLOCK_TYPE
+  video: ComponentVideoYouTubeInput
+  width: Int
+}
+
+input BooleanFilterInput {
+  and: [Boolean]
+  between: [Boolean]
+  contains: Boolean
+  containsi: Boolean
+  endsWith: Boolean
+  eq: Boolean
+  eqi: Boolean
+  gt: Boolean
+  gte: Boolean
+  in: [Boolean]
+  lt: Boolean
+  lte: Boolean
+  ne: Boolean
+  not: BooleanFilterInput
+  notContains: Boolean
+  notContainsi: Boolean
+  notIn: [Boolean]
+  notNull: Boolean
+  null: Boolean
+  or: [Boolean]
+  startsWith: Boolean
+}
+
+input ComponentLinkHrefFiltersInput {
+  and: [ComponentLinkHrefFiltersInput]
+  not: ComponentLinkHrefFiltersInput
+  or: [ComponentLinkHrefFiltersInput]
+  style: ComponentLinkTextFiltersInput
+  text: StringFilterInput
+  url: StringFilterInput
+}
+
+input ComponentLinkHrefInput {
+  id: ID
+  style: ComponentLinkTextInput
+  text: String
+  url: String
+}
+
+input ComponentLinkTextFiltersInput {
+  and: [ComponentLinkTextFiltersInput]
+  background: StringFilterInput
+  color: StringFilterInput
+  not: ComponentLinkTextFiltersInput
+  or: [ComponentLinkTextFiltersInput]
+  underline: BooleanFilterInput
+  uppercase: BooleanFilterInput
+}
+
+input ComponentLinkTextInput {
+  background: ENUM_COMPONENTLINKTEXT_BACKGROUND
+  color: ENUM_COMPONENTLINKTEXT_COLOR
+  id: ID
+  underline: Boolean
+  uppercase: Boolean
+}
+
+input ComponentPageBlogFiltersInput {
+  and: [ComponentPageBlogFiltersInput]
+  not: ComponentPageBlogFiltersInput
+  or: [ComponentPageBlogFiltersInput]
+  tag: StringFilterInput
+  text: StringFilterInput
+}
+
+input ComponentPageBlogInput {
+  id: ID
+  tag: ENUM_COMPONENTPAGEBLOG_TAG
+  text: String
+}
+
+input ComponentPageBuiltInFiltersInput {
+  and: [ComponentPageBuiltInFiltersInput]
+  name: StringFilterInput
+  not: ComponentPageBuiltInFiltersInput
+  or: [ComponentPageBuiltInFiltersInput]
+}
+
+input ComponentPageBuiltInInput {
+  id: ID
+  name: ENUM_COMPONENTPAGEBUILTIN_NAME
+}
+
+input ComponentPageContentFiltersInput {
+  and: [ComponentPageContentFiltersInput]
+  content: StringFilterInput
+  not: ComponentPageContentFiltersInput
+  or: [ComponentPageContentFiltersInput]
+}
+
+input ComponentPageContentInput {
+  content: String
+  id: ID
+}
+
+input ComponentRelBlockFiltersInput {
+  and: [ComponentRelBlockFiltersInput]
+  block: BlockFiltersInput
+  not: ComponentRelBlockFiltersInput
+  or: [ComponentRelBlockFiltersInput]
+}
+
+input ComponentRelBlockInput {
+  block: ID
+  id: ID
+}
+
+input ComponentRelPageFiltersInput {
+  and: [ComponentRelPageFiltersInput]
+  not: ComponentRelPageFiltersInput
+  or: [ComponentRelPageFiltersInput]
+  page: PageFiltersInput
+}
+
+input ComponentRelPageInput {
+  id: ID
+  page: ID
+}
+
+input ComponentVideoYouTubeFiltersInput {
+  and: [ComponentVideoYouTubeFiltersInput]
+  not: ComponentVideoYouTubeFiltersInput
+  or: [ComponentVideoYouTubeFiltersInput]
+  url: StringFilterInput
+}
+
+input ComponentVideoYouTubeInput {
+  id: ID
+  url: String
+}
+
+input DateTimeFilterInput {
+  and: [DateTime]
+  between: [DateTime]
+  contains: DateTime
+  containsi: DateTime
+  endsWith: DateTime
+  eq: DateTime
+  eqi: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime]
+  lt: DateTime
+  lte: DateTime
+  ne: DateTime
+  not: DateTimeFilterInput
+  notContains: DateTime
+  notContainsi: DateTime
+  notIn: [DateTime]
+  notNull: Boolean
+  null: Boolean
+  or: [DateTime]
+  startsWith: DateTime
+}
+
+input DocFiltersInput {
+  and: [DocFiltersInput]
+  category: StringFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  locale: StringFilterInput
+  localizations: DocFiltersInput
+  not: DocFiltersInput
+  or: [DocFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input DocInput {
+  category: String
+  files: [DocFilesDynamicZoneInput!]
+}
+
+input FaqFiltersInput {
+  and: [FaqFiltersInput]
+  answer: StringFilterInput
+  createdAt: DateTimeFilterInput
+  enabled: BooleanFilterInput
+  id: IDFilterInput
+  locale: StringFilterInput
+  localizations: FaqFiltersInput
+  not: FaqFiltersInput
+  or: [FaqFiltersInput]
+  order: IntFilterInput
+  question: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input FaqInput {
+  answer: String
+  enabled: Boolean
+  order: Int
+  question: String
+}
+
+input FileInfoInput {
+  alternativeText: String
+  caption: String
+  name: String
+}
+
+input FloatFilterInput {
+  and: [Float]
+  between: [Float]
+  contains: Float
+  containsi: Float
+  endsWith: Float
+  eq: Float
+  eqi: Float
+  gt: Float
+  gte: Float
+  in: [Float]
+  lt: Float
+  lte: Float
+  ne: Float
+  not: FloatFilterInput
+  notContains: Float
+  notContainsi: Float
+  notIn: [Float]
+  notNull: Boolean
+  null: Boolean
+  or: [Float]
+  startsWith: Float
+}
+
+input FooterInput {
+  links: [FooterLinksDynamicZoneInput!]
+}
+
+input HomeInput {
+  highlight: [ComponentRelBlockInput]
+  main: ComponentRelBlockInput
+  other: [ComponentRelBlockInput]
+}
+
+input I18NLocaleFiltersInput {
+  and: [I18NLocaleFiltersInput]
+  code: StringFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: I18NLocaleFiltersInput
+  or: [I18NLocaleFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input IDFilterInput {
+  and: [ID]
+  between: [ID]
+  contains: ID
+  containsi: ID
+  endsWith: ID
+  eq: ID
+  eqi: ID
+  gt: ID
+  gte: ID
+  in: [ID]
+  lt: ID
+  lte: ID
+  ne: ID
+  not: IDFilterInput
+  notContains: ID
+  notContainsi: ID
+  notIn: [ID]
+  notNull: Boolean
+  null: Boolean
+  or: [ID]
+  startsWith: ID
+}
+
+input IntFilterInput {
+  and: [Int]
+  between: [Int]
+  contains: Int
+  containsi: Int
+  endsWith: Int
+  eq: Int
+  eqi: Int
+  gt: Int
+  gte: Int
+  in: [Int]
+  lt: Int
+  lte: Int
+  ne: Int
+  not: IntFilterInput
+  notContains: Int
+  notContainsi: Int
+  notIn: [Int]
+  notNull: Boolean
+  null: Boolean
+  or: [Int]
+  startsWith: Int
+}
+
+input JSONFilterInput {
+  and: [JSON]
+  between: [JSON]
+  contains: JSON
+  containsi: JSON
+  endsWith: JSON
+  eq: JSON
+  eqi: JSON
+  gt: JSON
+  gte: JSON
+  in: [JSON]
+  lt: JSON
+  lte: JSON
+  ne: JSON
+  not: JSONFilterInput
+  notContains: JSON
+  notContainsi: JSON
+  notIn: [JSON]
+  notNull: Boolean
+  null: Boolean
+  or: [JSON]
+  startsWith: JSON
+}
+
+input LangFiltersInput {
+  and: [LangFiltersInput]
+  code: StringFilterInput
+  createdAt: DateTimeFilterInput
+  enabled: BooleanFilterInput
+  id: IDFilterInput
+  not: LangFiltersInput
+  or: [LangFiltersInput]
+  order: IntFilterInput
+  text: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input LangInput {
+  code: String
+  enabled: Boolean
+  order: Int
+  text: String
+}
+
+input MediaFiltersInput {
+  and: [MediaFiltersInput]
+  createdAt: DateTimeFilterInput
+  enabled: BooleanFilterInput
+  id: IDFilterInput
+  link: ComponentLinkHrefFiltersInput
+  name: StringFilterInput
+  not: MediaFiltersInput
+  or: [MediaFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input MediaInput {
+  enabled: Boolean
+  image: ID
+  link: ComponentLinkHrefInput
+  name: String
+}
+
+input NavFiltersInput {
+  and: [NavFiltersInput]
+  builtin: ComponentPageBuiltInFiltersInput
+  createdAt: DateTimeFilterInput
+  custom: ComponentRelPageFiltersInput
+  enabled: BooleanFilterInput
+  id: IDFilterInput
+  locale: StringFilterInput
+  localizations: NavFiltersInput
+  not: NavFiltersInput
+  or: [NavFiltersInput]
+  order: IntFilterInput
+  text: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input NavInput {
+  builtin: ComponentPageBuiltInInput
+  custom: ComponentRelPageInput
+  enabled: Boolean
+  order: Int
+  text: String
+}
+
+input PageFiltersInput {
+  and: [PageFiltersInput]
+  blog: ComponentPageBlogFiltersInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  locale: StringFilterInput
+  localizations: PageFiltersInput
+  name: StringFilterInput
+  not: PageFiltersInput
+  or: [PageFiltersInput]
+  path: StringFilterInput
+  static: ComponentPageContentFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input PageInput {
+  blog: ComponentPageBlogInput
+  name: String
+  path: String
+  static: ComponentPageContentInput
+}
+
+input PaginationArg {
+  limit: Int
+  page: Int
+  pageSize: Int
+  start: Int
+}
+
+input PostFiltersInput {
+  and: [PostFiltersInput]
+  content: StringFilterInput
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  locale: StringFilterInput
+  localizations: PostFiltersInput
+  not: PostFiltersInput
+  or: [PostFiltersInput]
+  short: StringFilterInput
+  text: StringFilterInput
+  type: StringFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input PostInput {
+  content: String
+  image: ID
+  short: String
+  text: String
+  type: ENUM_POST_TYPE
+}
+
+input SocialFiltersInput {
+  and: [SocialFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: SocialFiltersInput
+  or: [SocialFiltersInput]
+  updatedAt: DateTimeFilterInput
+  url: StringFilterInput
+}
+
+input SocialInput {
+  icon: ID
+  name: String
+  url: String
+}
+
+input StringFilterInput {
+  and: [String]
+  between: [String]
+  contains: String
+  containsi: String
+  endsWith: String
+  eq: String
+  eqi: String
+  gt: String
+  gte: String
+  in: [String]
+  lt: String
+  lte: String
+  ne: String
+  not: StringFilterInput
+  notContains: String
+  notContainsi: String
+  notIn: [String]
+  notNull: Boolean
+  null: Boolean
+  or: [String]
+  startsWith: String
+}
+
+input UploadFileFiltersInput {
+  alternativeText: StringFilterInput
+  and: [UploadFileFiltersInput]
+  caption: StringFilterInput
+  createdAt: DateTimeFilterInput
+  ext: StringFilterInput
+  folder: UploadFolderFiltersInput
+  folderPath: StringFilterInput
+  formats: JSONFilterInput
+  hash: StringFilterInput
+  height: IntFilterInput
+  id: IDFilterInput
+  mime: StringFilterInput
+  name: StringFilterInput
+  not: UploadFileFiltersInput
+  or: [UploadFileFiltersInput]
+  previewUrl: StringFilterInput
+  provider: StringFilterInput
+  provider_metadata: JSONFilterInput
+  size: FloatFilterInput
+  updatedAt: DateTimeFilterInput
+  url: StringFilterInput
+  width: IntFilterInput
+}
+
+input UploadFileInput {
+  alternativeText: String
+  caption: String
+  ext: String
+  folder: ID
+  folderPath: String
+  formats: JSON
+  hash: String
+  height: Int
+  mime: String
+  name: String
+  previewUrl: String
+  provider: String
+  provider_metadata: JSON
+  size: Float
+  url: String
+  width: Int
+}
+
+input UploadFolderFiltersInput {
+  and: [UploadFolderFiltersInput]
+  children: UploadFolderFiltersInput
+  createdAt: DateTimeFilterInput
+  files: UploadFileFiltersInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: UploadFolderFiltersInput
+  or: [UploadFolderFiltersInput]
+  parent: UploadFolderFiltersInput
+  path: StringFilterInput
+  pathId: IntFilterInput
+  updatedAt: DateTimeFilterInput
+}
+
+input UploadFolderInput {
+  children: [ID]
+  files: [ID]
+  name: String
+  parent: ID
+  path: String
+  pathId: Int
+}
+
+input UsersPermissionsLoginInput {
+  identifier: String!
+  password: String!
+  provider: String!
+}
+
+input UsersPermissionsPermissionFiltersInput {
+  action: StringFilterInput
+  and: [UsersPermissionsPermissionFiltersInput]
+  createdAt: DateTimeFilterInput
+  id: IDFilterInput
+  not: UsersPermissionsPermissionFiltersInput
+  or: [UsersPermissionsPermissionFiltersInput]
+  role: UsersPermissionsRoleFiltersInput
+  updatedAt: DateTimeFilterInput
+}
+
+input UsersPermissionsRegisterInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+input UsersPermissionsRoleFiltersInput {
+  and: [UsersPermissionsRoleFiltersInput]
+  createdAt: DateTimeFilterInput
+  description: StringFilterInput
+  id: IDFilterInput
+  name: StringFilterInput
+  not: UsersPermissionsRoleFiltersInput
+  or: [UsersPermissionsRoleFiltersInput]
+  permissions: UsersPermissionsPermissionFiltersInput
+  type: StringFilterInput
+  updatedAt: DateTimeFilterInput
+  users: UsersPermissionsUserFiltersInput
+}
+
+input UsersPermissionsRoleInput {
+  description: String
+  name: String
+  permissions: [ID]
+  type: String
+  users: [ID]
+}
+
+input UsersPermissionsUserFiltersInput {
+  and: [UsersPermissionsUserFiltersInput]
+  blocked: BooleanFilterInput
+  confirmationToken: StringFilterInput
+  confirmed: BooleanFilterInput
+  createdAt: DateTimeFilterInput
+  email: StringFilterInput
+  id: IDFilterInput
+  not: UsersPermissionsUserFiltersInput
+  or: [UsersPermissionsUserFiltersInput]
+  password: StringFilterInput
+  provider: StringFilterInput
+  resetPasswordToken: StringFilterInput
+  role: UsersPermissionsRoleFiltersInput
+  updatedAt: DateTimeFilterInput
+  username: StringFilterInput
+}
+
+input UsersPermissionsUserInput {
+  blocked: Boolean
+  confirmationToken: String
+  confirmed: Boolean
+  email: String
+  password: String
+  provider: String
+  resetPasswordToken: String
+  role: ID
+  username: String
+}

@@ -1,0 +1,48 @@
+{
+  "possibleTypes": {
+    "BlockActionsDynamicZone": [
+      "ComponentLinkHref",
+      "ComponentLinkRoute",
+      "ComponentLinkSocial",
+      "Error"
+    ],
+    "DocFilesDynamicZone": [
+      "ComponentLinkHref",
+      "Error"
+    ],
+    "FooterLinksDynamicZone": [
+      "ComponentLinkRoute",
+      "ComponentLinkSocial",
+      "Error"
+    ],
+    "GenericMorph": [
+      "Block",
+      "ComponentLinkHref",
+      "ComponentLinkRoute",
+      "ComponentLinkSocial",
+      "ComponentLinkText",
+      "ComponentPageBlog",
+      "ComponentPageBuiltIn",
+      "ComponentPageContent",
+      "ComponentRelBlock",
+      "ComponentRelPage",
+      "ComponentVideoYouTube",
+      "Doc",
+      "Faq",
+      "Footer",
+      "Home",
+      "I18NLocale",
+      "Lang",
+      "Media",
+      "Nav",
+      "Page",
+      "Post",
+      "Social",
+      "UploadFile",
+      "UploadFolder",
+      "UsersPermissionsPermission",
+      "UsersPermissionsRole",
+      "UsersPermissionsUser"
+    ]
+  }
+}

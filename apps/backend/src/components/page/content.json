@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_page_contents",
+  "info": {
+    "displayName": "Custom",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

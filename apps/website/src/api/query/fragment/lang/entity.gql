@@ -1,0 +1,4 @@
+fragment Lang on Lang {
+  code
+  text
+}

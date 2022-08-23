@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_page_blogs",
+  "info": {
+    "displayName": "Blog",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "enumeration",
+      "enum": [
+        "News",
+        "AGTI"
+      ]
+    },
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

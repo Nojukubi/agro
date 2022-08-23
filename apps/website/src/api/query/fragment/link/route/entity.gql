@@ -1,0 +1,16 @@
+#import ../text/entity.gql
+#import ../../page/custom.gql
+#import ../../page/builtin.gql
+
+fragment LinkRoute on ComponentLinkRoute {
+  text
+  style {
+    ...LinkText
+  }
+  custom {
+    ...PageCustom
+  }
+  builtin {
+    ...PageBuiltin
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_link_socials",
+  "info": {
+    "displayName": "Social",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "social": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::social.social"
+    },
+    "icon": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "style": {
+      "type": "component",
+      "repeatable": false,
+      "component": "link.text"
+    }
+  }
+}

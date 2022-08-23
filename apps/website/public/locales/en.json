@@ -1,0 +1,19 @@
+{
+  "general": {
+    "read": "Read More"
+  },
+  "nav": {
+    "home": "Home"
+  },
+  "views": {
+    "docs": {
+      "title": "Documents"
+    },
+    "faqs": {
+      "title": "FAQ"
+    },
+    "medias": {
+      "title": "Mass media"
+    }
+  }
+}

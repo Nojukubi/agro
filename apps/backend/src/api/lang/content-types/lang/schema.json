@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "langs",
+  "info": {
+    "singularName": "lang",
+    "pluralName": "langs",
+    "displayName": "Lang",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string",
+      "required": true,
+      "maxLength": 2,
+      "minLength": 2,
+      "unique": true
+    },
+    "text": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "order": {
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "unique": false
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

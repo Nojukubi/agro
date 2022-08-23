@@ -1,0 +1,10 @@
+#import ./entity.gql
+
+fragment DocEntities on DocEntityResponseCollection {
+  data {
+    id
+    attributes {
+      ...Doc
+    }
+  }
+}

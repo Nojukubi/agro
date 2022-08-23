@@ -1,0 +1,7 @@
+#import ./fragment/faq/entities.gql
+
+query Faqs($locale: I18NLocaleCode) {
+  faqs(filters: { enabled: { eq: true } }, sort: "order", locale: $locale) {
+    ...FaqEntities
+  }
+}

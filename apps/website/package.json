@@ -1,0 +1,35 @@
+{
+  "name": "@agro/website",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "tool dev",
+    "build": "tool build",
+    "preview": "tool preview",
+    "generate": "graphql-codegen"
+  },
+  "dependencies": {
+    "@mdi/js": "^7.0.96",
+    "@apollo/client": "^3.6.9",
+    "cookiejs": "^2.1.1",
+    "graphql": "^16.5.0",
+    "quasar": "^2.7.7",
+    "vue": "^3.2.37",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.1.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.11.6",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/fragment-matcher": "^3.3.1",
+    "@internal/builder": "0.0.0",
+    "@internal/scripts": "0.0.0",
+    "@internal/typescript": "0.0.0",
+    "@stylize/sass-func": "^1.0.4",
+    "@stylize/sass-mixin": "^1.1.0",
+    "@types/cookie_js": "^1.2.1",
+    "express": "^4.18.1",
+    "sass": "^1.54.4",
+    "pug": "^3.0.2",
+    "vite": "^3.0.6"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_link_hrefs",
+  "info": {
+    "displayName": "Href",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "style": {
+      "type": "component",
+      "repeatable": false,
+      "component": "link.text"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_link_routes",
+  "info": {
+    "displayName": "Route",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "style": {
+      "type": "component",
+      "repeatable": false,
+      "component": "link.text"
+    },
+    "builtin": {
+      "type": "component",
+      "repeatable": false,
+      "component": "page.built-in"
+    },
+    "custom": {
+      "type": "component",
+      "repeatable": false,
+      "component": "rel.page"
+    }
+  }
+}

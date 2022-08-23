@@ -1,0 +1,6 @@
+fragment LinkText on ComponentLinkText {
+  color
+  background
+  uppercase
+  underline
+}

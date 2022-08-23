@@ -1,0 +1,13 @@
+#import ../text/entity.gql
+#import ../../social/entity.gql
+
+fragment LinkSocial on ComponentLinkSocial {
+  text
+  icon
+  style {
+    ...LinkText
+  }
+  social {
+    ...SocialWrapper
+  }
+}

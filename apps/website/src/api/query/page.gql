@@ -1,0 +1,12 @@
+#import ./fragment/page/entity.gql
+
+query Page($id: ID) {
+  page(id: $id) {
+    data {
+      id
+      attributes {
+        ...Page
+      }
+    }
+  }
+}

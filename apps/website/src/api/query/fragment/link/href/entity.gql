@@ -1,0 +1,9 @@
+#import ../text/entity.gql
+
+fragment LinkHref on ComponentLinkHref {
+  url
+  text
+  style {
+    ...LinkText
+  }
+}

@@ -1,0 +1,11 @@
+#import ../file/entity.gql
+#import ../link/href/entity.gql
+
+fragment Media on Media {
+  link {
+    ...LinkHref
+  }
+  image {
+    ...FileWrapper
+  }
+}

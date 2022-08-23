@@ -1,0 +1,30 @@
+#import ./fragment/page/config.gql
+#import ./fragment/nav/entities.gql
+#import ./fragment/lang/entities.gql
+#import ./fragment/link/route/entity.gql
+#import ./fragment/link/social/entity.gql
+
+query Config($locale: I18NLocaleCode) {
+  langs(filters: { enabled: { eq: true } }, sort: "order") {
+    ...LangEntities
+  }
+
+  navs(filters: { enabled: { eq: true } }, sort: "order", locale: $locale) {
+    ...NavEntities
+  }
+
+  pages(locale: $locale) {
+    ...PageConfigEntities
+  }
+
+  footer(locale: $locale) {
+    data {
+      attributes {
+        links {
+          ...LinkRoute
+          ...LinkSocial
+        }
+      }
+    }
+  }
+}

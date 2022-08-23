@@ -1,0 +1,10 @@
+#import ./entity.gql
+
+fragment PageEntities on PageEntityResponseCollection {
+  data {
+    id
+    attributes {
+      ...Page
+    }
+  }
+}

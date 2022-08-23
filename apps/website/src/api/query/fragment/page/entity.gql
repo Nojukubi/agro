@@ -1,0 +1,21 @@
+fragment Page on Page {
+  name
+  path
+  blog {
+    id
+    tag
+    text
+  }
+  static {
+    id
+    content
+  }
+  localizations {
+    data {
+      id
+      attributes {
+        locale
+      }
+    }
+  }
+}

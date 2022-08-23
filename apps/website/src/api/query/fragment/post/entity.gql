@@ -1,0 +1,26 @@
+#import ../file/entity.gql
+
+fragment Post on Post {
+  text
+  content
+  image {
+    ...FileWrapper
+  }
+  localizations {
+    data {
+      id
+      attributes {
+        locale
+      }
+    }
+  }
+}
+
+fragment PostWrapper on PostEntityResponse {
+  data {
+    id
+    attributes {
+      ...Post
+    }
+  }
+}

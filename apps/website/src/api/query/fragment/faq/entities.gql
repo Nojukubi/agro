@@ -1,0 +1,10 @@
+#import ./entity.gql
+
+fragment FaqEntities on FaqEntityResponseCollection {
+  data {
+    id
+    attributes {
+      ...Faq
+    }
+  }
+}

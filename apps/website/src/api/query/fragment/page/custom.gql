@@ -1,0 +1,9 @@
+fragment PageCustom on ComponentRelPage {
+  page {
+    data {
+      attributes {
+        name
+      }
+    }
+  }
+}

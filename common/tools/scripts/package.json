@@ -1,0 +1,23 @@
+{
+  "name": "@internal/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "bin": {
+    "tool": "./index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@internal/eslint": "0.0.0",
+    "npm-which": "^3.0.1",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.6",
+    "vue-tsc": "^0.40.1"
+  },
+  "devDependencies": {
+    "@types/npm-which": "^3.0.1",
+    "@internal/typescript": "0.0.0"
+  }
+}

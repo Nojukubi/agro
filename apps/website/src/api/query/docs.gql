@@ -1,0 +1,7 @@
+#import ./fragment/doc/entities.gql
+
+query Docs($locale: I18NLocaleCode) {
+  docs(locale: $locale) {
+    ...DocEntities
+  }
+}

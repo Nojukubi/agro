@@ -1,0 +1,7 @@
+#import ./fragment/media/entities.gql
+
+query Medias {
+  medias(filters: { enabled: { eq: true } }, sort: "updatedAt:desc") {
+    ...MediaEntities
+  }
+}

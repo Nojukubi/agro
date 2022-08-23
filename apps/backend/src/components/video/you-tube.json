@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_video_you_tubes",
+  "info": {
+    "displayName": "YouTube",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

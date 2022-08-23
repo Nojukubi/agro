@@ -1,0 +1,9 @@
+#import ./entity.gql
+
+fragment NavEntities on NavEntityResponseCollection {
+  data {
+    attributes {
+      ...Nav
+    }
+  }
+}

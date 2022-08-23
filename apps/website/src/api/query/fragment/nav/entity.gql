@@ -1,0 +1,12 @@
+#import ../page/custom.gql
+#import ../page/builtin.gql
+
+fragment Nav on Nav {
+  text
+  custom {
+    ...PageCustom
+  }
+  builtin {
+    ...PageBuiltin
+  }
+}

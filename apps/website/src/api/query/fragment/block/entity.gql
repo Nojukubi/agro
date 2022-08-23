@@ -1,0 +1,29 @@
+#import ../file/entity.gql
+#import ../link/href/entity.gql
+#import ../link/route/entity.gql
+#import ../link/social/entity.gql
+
+fragment Block on Block {
+  type
+  width
+  content
+  align_content
+  align_actions
+  image {
+    ...FileWrapper
+  }
+  actions {
+    ...LinkHref
+    ...LinkRoute
+    ...LinkSocial
+  }
+}
+
+fragment BlockWrapper on BlockEntityResponse {
+  data {
+    id
+    attributes {
+      ...Block
+    }
+  }
+}

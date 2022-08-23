@@ -1,0 +1,9 @@
+#import ./entity.gql
+
+fragment LangEntities on LangEntityResponseCollection {
+  data {
+    attributes {
+      ...Lang
+    }
+  }
+}
