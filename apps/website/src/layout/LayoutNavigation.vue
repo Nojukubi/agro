@@ -1,11 +1,14 @@
 <template lang="pug">
-  q-tabs.text-body2
-    q-route-tab(:to="{ name: 'home' }")
+  q-tabs.layout-navigation.text-body2
+    q-route-tab.layout-navigation__tab(:to="{ name: 'home' }")
       | {{ t('nav.home') }}
-    q-route-tab(
-      v-for="{ text, builtin, custom } in availableNavs",
-      :to="{ name: builtin?.name ?? custom?.name }")
-      | {{ text }}
+    template(
+      v-for="{ text, header, builtin, custom } in navs",
+      :key="text")
+      q-route-tab.layout-navigation__tab(
+        v-if="header",
+        :to="{ name: builtin?.name ?? custom?.name }")
+        | {{ text }}
 </template>
 
 <script lang="ts" setup>
@@ -18,5 +21,15 @@
   const { t }: Composer = useI18n();
 
   // Configured available navigation.
-  const availableNavs: Nav[] = $(inject('availableNavs'));
+  const navs: Nav[] = $(inject('availableNavs'));
 </script>
+
+<style lang="sass" scoped>
+  @use '~@stylize/sass-mixin' as *
+  @use '#/styles/vars' as *
+
+  .layout-navigation
+    &__tab
+      margin: 0 $offset * 0.25
+      padding: 0 $offset
+</style>

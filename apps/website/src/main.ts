@@ -1,12 +1,12 @@
 import './App.sass';
 import { Quasar } from 'quasar';
 import { createApp } from 'vue';
+import { useConfigQuery } from './api/query';
 import { getLanguage } from './helpers/language';
 import { router, i18n, setI18nLang } from './plugins';
-import { useConfigQuery } from '#/api/query';
 import Application from './App.vue';
 import type { App } from 'vue';
-import type { Page } from '#/api/query';
+import type { Page } from './api/query';
 
 // Create the application based on props.
 export async function create(props: { url?: string }) {

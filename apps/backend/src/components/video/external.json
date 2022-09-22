@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_video_externals",
+  "info": {
+    "displayName": "External",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "code": {
+      "type": "string",
+      "required": true
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "service": {
+      "type": "enumeration",
+      "enum": ["YouTube"],
+      "required": true
+    }
+  }
+}

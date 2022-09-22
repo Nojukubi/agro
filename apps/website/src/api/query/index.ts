@@ -4,6 +4,7 @@ export * from './docs';
 export * from './faqs';
 export * from './home';
 export * from './medias';
+export * from './videos';
 export * from './page';
 export * from './post';
 export * from './fragment';

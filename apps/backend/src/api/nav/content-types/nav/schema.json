@@ -67,6 +67,16 @@
         }
       },
       "component": "page.built-in"
+    },
+    "header": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

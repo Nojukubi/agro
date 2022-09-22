@@ -4,10 +4,12 @@
       v-for="card in cards",
       :key="card?.name",
       :data="card")
+    home-token
 </template>
 
 <script lang="ts" setup>
   import HomeCard from './HomeCard.vue';
+  import HomeToken from './HomeToken.vue';
   import type { Block } from '#/api/query';
 
   // Defines the props.
@@ -31,6 +33,7 @@
     +media('>=md' 'h>800px')
       min-height: 30vh
 
-    :deep(.home-card)
+    :deep(.home-card),
+    :deep(.home-token)
       flex: 1 0 0
 </style>

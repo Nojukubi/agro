@@ -32,10 +32,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "Cover",
-        "Side"
-      ],
+      "enum": ["Cover", "Side"],
       "default": "Cover",
       "required": true
     },
@@ -43,9 +40,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -59,11 +54,7 @@
         }
       },
       "type": "dynamiczone",
-      "components": [
-        "link.href",
-        "link.route",
-        "link.social"
-      ]
+      "components": ["link.href", "link.route", "link.social"]
     },
     "name": {
       "pluginOptions": {
@@ -73,16 +64,6 @@
       },
       "type": "string",
       "required": true
-    },
-    "video": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "video.you-tube"
     },
     "width": {
       "pluginOptions": {
@@ -99,11 +80,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "center",
-        "left",
-        "right"
-      ],
+      "enum": ["center", "left", "right"],
       "default": "left"
     },
     "align_actions": {
@@ -113,11 +90,7 @@
         }
       },
       "type": "enumeration",
-      "enum": [
-        "center",
-        "left",
-        "right"
-      ],
+      "enum": ["center", "left", "right"],
       "default": "left"
     }
   }

@@ -14,14 +14,14 @@ export default <UserConfig>{
   plugins: [
     pluginGraphQL(),
     pluginDeIndent(),
-    pluginVue({
-      reactivityTransform: true
-    }),
     pluginQuasar({
       sassVariables: false
     }),
     pluginEslint({
       baseConfig: eslintConfig
+    }),
+    pluginVue({
+      reactivityTransform: true
     })
   ]
 };

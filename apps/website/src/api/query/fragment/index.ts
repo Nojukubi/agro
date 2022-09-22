@@ -8,5 +8,6 @@ export * from './media';
 export * from './nav';
 export * from './page';
 export * from './post';
+export * from './video';
 export * from './color';
 export * from './dynamic';

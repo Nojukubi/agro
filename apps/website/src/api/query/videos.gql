@@ -1,0 +1,7 @@
+#import ./fragment/video/entities.gql
+
+query Videos {
+  videos {
+    ...VideoEntities
+  }
+}

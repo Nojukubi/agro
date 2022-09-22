@@ -1,5 +1,6 @@
 <template lang="pug">
-  .medias-view.q-pa-lg(v-if="medias")
+  base-loading(v-if="!medias")
+  .medias-view.q-pa-lg(v-else)
     h1.medias-view__title
       | {{ t('views.medias.title') }}
     base-grid.medias-view__cards
@@ -13,19 +14,18 @@
           q-img.medias-view__image(
             :src="media.image?.url",
             :draggable="false")
-          q-card-section
+          q-card-section.q-pb-lg
             a.medias-view__link(
               :href="media.link.url",
               target="__blank")
               | {{ media.link.text }}
           q-card-actions.medias-view__actions
-            q-btn.bg-grey-3(
+            q-btn.q-mb-sm.bg-grey-3(
               :flat="true",
               :href="media.link.url",
               target="__blank",
               text-color="dark",
               :label="t('general.read')")
-  base-loading(v-else)
 </template>
 
 <script lang="ts" setup>
@@ -48,7 +48,7 @@
   // Registers the hook called on server prefetch.
   onServerPrefetch(loadMedias);
 
-  // Load the Medias from server based on current lang.
+  // Load the defined Medias from server.
   async function loadMedias(): Promise<void> {
     return execMediasQuery();
   }

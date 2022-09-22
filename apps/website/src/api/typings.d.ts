@@ -32,10 +32,8 @@ export type Block = {
   name: Scalars['String'];
   type: Enum_Block_Type;
   updatedAt?: Maybe<Scalars['DateTime']>;
-  video?: Maybe<ComponentVideoYouTube>;
   width?: Maybe<Scalars['Int']>;
 };
-
 
 export type BlockLocalizationsArgs = {
   filters?: InputMaybe<BlockFiltersInput>;
@@ -76,7 +74,6 @@ export type BlockFiltersInput = {
   or?: InputMaybe<Array<InputMaybe<BlockFiltersInput>>>;
   type?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
-  video?: InputMaybe<ComponentVideoYouTubeFiltersInput>;
   width?: InputMaybe<IntFilterInput>;
 };
 
@@ -88,7 +85,6 @@ export type BlockInput = {
   image?: InputMaybe<Scalars['ID']>;
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<Enum_Block_Type>;
-  video?: InputMaybe<ComponentVideoYouTubeInput>;
   width?: InputMaybe<Scalars['Int']>;
 };
 
@@ -125,6 +121,7 @@ export type ComponentLinkHref = {
   __typename?: 'ComponentLinkHref';
   id: Scalars['ID'];
   style?: Maybe<ComponentLinkText>;
+  target?: Maybe<Enum_Componentlinkhref_Target>;
   text: Scalars['String'];
   url: Scalars['String'];
 };
@@ -134,6 +131,7 @@ export type ComponentLinkHrefFiltersInput = {
   not?: InputMaybe<ComponentLinkHrefFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentLinkHrefFiltersInput>>>;
   style?: InputMaybe<ComponentLinkTextFiltersInput>;
+  target?: InputMaybe<StringFilterInput>;
   text?: InputMaybe<StringFilterInput>;
   url?: InputMaybe<StringFilterInput>;
 };
@@ -141,6 +139,7 @@ export type ComponentLinkHrefFiltersInput = {
 export type ComponentLinkHrefInput = {
   id?: InputMaybe<Scalars['ID']>;
   style?: InputMaybe<ComponentLinkTextInput>;
+  target?: InputMaybe<Enum_Componentlinkhref_Target>;
   text?: InputMaybe<Scalars['String']>;
   url?: InputMaybe<Scalars['String']>;
 };
@@ -283,22 +282,27 @@ export type ComponentRelPageInput = {
   page?: InputMaybe<Scalars['ID']>;
 };
 
-export type ComponentVideoYouTube = {
-  __typename?: 'ComponentVideoYouTube';
+export type ComponentVideoExternal = {
+  __typename?: 'ComponentVideoExternal';
+  code: Scalars['String'];
+  cover: UploadFileEntityResponse;
   id: Scalars['ID'];
-  url: Scalars['String'];
+  service: Enum_Componentvideoexternal_Service;
 };
 
-export type ComponentVideoYouTubeFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ComponentVideoYouTubeFiltersInput>>>;
-  not?: InputMaybe<ComponentVideoYouTubeFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentVideoYouTubeFiltersInput>>>;
-  url?: InputMaybe<StringFilterInput>;
+export type ComponentVideoExternalFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentVideoExternalFiltersInput>>>;
+  code?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentVideoExternalFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentVideoExternalFiltersInput>>>;
+  service?: InputMaybe<StringFilterInput>;
 };
 
-export type ComponentVideoYouTubeInput = {
+export type ComponentVideoExternalInput = {
+  code?: InputMaybe<Scalars['String']>;
+  cover?: InputMaybe<Scalars['ID']>;
   id?: InputMaybe<Scalars['ID']>;
-  url?: InputMaybe<Scalars['String']>;
+  service?: InputMaybe<Enum_Componentvideoexternal_Service>;
 };
 
 export type DateTimeFilterInput = {
@@ -334,7 +338,6 @@ export type Doc = {
   localizations?: Maybe<DocRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
-
 
 export type DocLocalizationsArgs = {
   filters?: InputMaybe<DocFiltersInput>;
@@ -398,6 +401,11 @@ export enum Enum_Block_Align_Content {
 export enum Enum_Block_Type {
   Cover = 'Cover',
   Side = 'Side'
+}
+
+export enum Enum_Componentlinkhref_Target {
+  Blank = 'Blank',
+  Self = 'Self'
 }
 
 export enum Enum_Componentlinktext_Background {
@@ -634,7 +642,12 @@ export enum Enum_Componentpageblog_Tag {
 export enum Enum_Componentpagebuiltin_Name {
   Documents = 'documents',
   Faq = 'faq',
-  Media = 'media'
+  Media = 'media',
+  Videos = 'videos'
+}
+
+export enum Enum_Componentvideoexternal_Service {
+  YouTube = 'YouTube'
 }
 
 export enum Enum_Post_Type {
@@ -657,7 +670,6 @@ export type Faq = {
   question: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
-
 
 export type FaqLocalizationsArgs = {
   filters?: InputMaybe<FaqFiltersInput>;
@@ -770,7 +782,35 @@ export type FooterRelationResponseCollection = {
   data: Array<FooterEntity>;
 };
 
-export type GenericMorph = Block | ComponentLinkHref | ComponentLinkRoute | ComponentLinkSocial | ComponentLinkText | ComponentPageBlog | ComponentPageBuiltIn | ComponentPageContent | ComponentRelBlock | ComponentRelPage | ComponentVideoYouTube | Doc | Faq | Footer | Home | I18NLocale | Lang | Media | Nav | Page | Post | Social | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph =
+  | Block
+  | ComponentLinkHref
+  | ComponentLinkRoute
+  | ComponentLinkSocial
+  | ComponentLinkText
+  | ComponentPageBlog
+  | ComponentPageBuiltIn
+  | ComponentPageContent
+  | ComponentRelBlock
+  | ComponentRelPage
+  | ComponentVideoExternal
+  | Doc
+  | Faq
+  | Footer
+  | Home
+  | I18NLocale
+  | Lang
+  | Media
+  | Nav
+  | Page
+  | Post
+  | Social
+  | UploadFile
+  | UploadFolder
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsUser
+  | Video;
 
 export type Home = {
   __typename?: 'Home';
@@ -783,13 +823,11 @@ export type Home = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-
 export type HomeHighlightArgs = {
   filters?: InputMaybe<ComponentRelBlockFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
-
 
 export type HomeOtherArgs = {
   filters?: InputMaybe<ComponentRelBlockFiltersInput>;
@@ -1021,6 +1059,8 @@ export type MediaInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Change user password. Confirm with the current password. */
+  changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createBlock?: Maybe<BlockEntityResponse>;
   createBlockLocalization?: Maybe<BlockEntityResponse>;
   createDoc?: Maybe<DocEntityResponse>;
@@ -1044,6 +1084,7 @@ export type Mutation = {
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  createVideo?: Maybe<VideoEntityResponse>;
   deleteBlock?: Maybe<BlockEntityResponse>;
   deleteDoc?: Maybe<DocEntityResponse>;
   deleteFaq?: Maybe<FaqEntityResponse>;
@@ -1061,6 +1102,7 @@ export type Mutation = {
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
   /** Delete an existing user */
   deleteUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteVideo?: Maybe<VideoEntityResponse>;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
   /** Request a reset password token */
@@ -1090,15 +1132,20 @@ export type Mutation = {
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  updateVideo?: Maybe<VideoEntityResponse>;
   upload: UploadFileEntityResponse;
 };
 
+export type MutationChangePasswordArgs = {
+  currentPassword: Scalars['String'];
+  password: Scalars['String'];
+  passwordConfirmation: Scalars['String'];
+};
 
 export type MutationCreateBlockArgs = {
   data: BlockInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationCreateBlockLocalizationArgs = {
   data?: InputMaybe<BlockInput>;
@@ -1106,12 +1153,10 @@ export type MutationCreateBlockLocalizationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationCreateDocArgs = {
   data: DocInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationCreateDocLocalizationArgs = {
   data?: InputMaybe<DocInput>;
@@ -1119,12 +1164,10 @@ export type MutationCreateDocLocalizationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationCreateFaqArgs = {
   data: FaqInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationCreateFaqLocalizationArgs = {
   data?: InputMaybe<FaqInput>;
@@ -1132,13 +1175,11 @@ export type MutationCreateFaqLocalizationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationCreateFooterLocalizationArgs = {
   data?: InputMaybe<FooterInput>;
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationCreateHomeLocalizationArgs = {
   data?: InputMaybe<HomeInput>;
@@ -1146,22 +1187,18 @@ export type MutationCreateHomeLocalizationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationCreateLangArgs = {
   data: LangInput;
 };
-
 
 export type MutationCreateMediaArgs = {
   data: MediaInput;
 };
 
-
 export type MutationCreateNavArgs = {
   data: NavInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationCreateNavLocalizationArgs = {
   data?: InputMaybe<NavInput>;
@@ -1169,12 +1206,10 @@ export type MutationCreateNavLocalizationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationCreatePageArgs = {
   data: PageInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationCreatePageLocalizationArgs = {
   data?: InputMaybe<PageInput>;
@@ -1182,12 +1217,10 @@ export type MutationCreatePageLocalizationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationCreatePostArgs = {
   data: PostInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationCreatePostLocalizationArgs = {
   data?: InputMaybe<PostInput>;
@@ -1195,127 +1228,111 @@ export type MutationCreatePostLocalizationArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationCreateSocialArgs = {
   data: SocialInput;
 };
-
 
 export type MutationCreateUploadFileArgs = {
   data: UploadFileInput;
 };
 
-
 export type MutationCreateUploadFolderArgs = {
   data: UploadFolderInput;
 };
-
 
 export type MutationCreateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
 };
 
-
 export type MutationCreateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
 };
 
+export type MutationCreateVideoArgs = {
+  data: VideoInput;
+};
 
 export type MutationDeleteBlockArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationDeleteDocArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationDeleteFaqArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationDeleteFooterArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationDeleteHomeArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationDeleteLangArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationDeleteMediaArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationDeleteNavArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationDeletePageArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationDeletePostArgs = {
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationDeleteSocialArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationDeleteUploadFileArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationDeleteUploadFolderArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationDeleteUsersPermissionsRoleArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationDeleteUsersPermissionsUserArgs = {
   id: Scalars['ID'];
 };
 
+export type MutationDeleteVideoArgs = {
+  id: Scalars['ID'];
+};
 
 export type MutationEmailConfirmationArgs = {
   confirmation: Scalars['String'];
 };
 
-
 export type MutationForgotPasswordArgs = {
   email: Scalars['String'];
 };
 
-
 export type MutationLoginArgs = {
   input: UsersPermissionsLoginInput;
 };
-
 
 export type MutationMultipleUploadArgs = {
   field?: InputMaybe<Scalars['String']>;
@@ -1324,16 +1341,13 @@ export type MutationMultipleUploadArgs = {
   refId?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type MutationRegisterArgs = {
   input: UsersPermissionsRegisterInput;
 };
 
-
 export type MutationRemoveFileArgs = {
   id: Scalars['ID'];
 };
-
 
 export type MutationResetPasswordArgs = {
   code: Scalars['String'];
@@ -1341,13 +1355,11 @@ export type MutationResetPasswordArgs = {
   passwordConfirmation: Scalars['String'];
 };
 
-
 export type MutationUpdateBlockArgs = {
   data: BlockInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationUpdateDocArgs = {
   data: DocInput;
@@ -1355,43 +1367,36 @@ export type MutationUpdateDocArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationUpdateFaqArgs = {
   data: FaqInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID'];
   info?: InputMaybe<FileInfoInput>;
 };
-
 
 export type MutationUpdateFooterArgs = {
   data: FooterInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationUpdateHomeArgs = {
   data: HomeInput;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationUpdateLangArgs = {
   data: LangInput;
   id: Scalars['ID'];
 };
 
-
 export type MutationUpdateMediaArgs = {
   data: MediaInput;
   id: Scalars['ID'];
 };
-
 
 export type MutationUpdateNavArgs = {
   data: NavInput;
@@ -1399,13 +1404,11 @@ export type MutationUpdateNavArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationUpdatePageArgs = {
   data: PageInput;
   id: Scalars['ID'];
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type MutationUpdatePostArgs = {
   data: PostInput;
@@ -1413,36 +1416,35 @@ export type MutationUpdatePostArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type MutationUpdateSocialArgs = {
   data: SocialInput;
   id: Scalars['ID'];
 };
-
 
 export type MutationUpdateUploadFileArgs = {
   data: UploadFileInput;
   id: Scalars['ID'];
 };
 
-
 export type MutationUpdateUploadFolderArgs = {
   data: UploadFolderInput;
   id: Scalars['ID'];
 };
-
 
 export type MutationUpdateUsersPermissionsRoleArgs = {
   data: UsersPermissionsRoleInput;
   id: Scalars['ID'];
 };
 
-
 export type MutationUpdateUsersPermissionsUserArgs = {
   data: UsersPermissionsUserInput;
   id: Scalars['ID'];
 };
 
+export type MutationUpdateVideoArgs = {
+  data: VideoInput;
+  id: Scalars['ID'];
+};
 
 export type MutationUploadArgs = {
   field?: InputMaybe<Scalars['String']>;
@@ -1457,12 +1459,12 @@ export type Nav = {
   builtin?: Maybe<ComponentPageBuiltIn>;
   createdAt?: Maybe<Scalars['DateTime']>;
   custom?: Maybe<ComponentRelPage>;
+  header: Scalars['Boolean'];
   locale?: Maybe<Scalars['String']>;
   localizations?: Maybe<NavRelationResponseCollection>;
   text: Scalars['String'];
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
-
 
 export type NavLocalizationsArgs = {
   filters?: InputMaybe<NavFiltersInput>;
@@ -1493,6 +1495,7 @@ export type NavFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   custom?: InputMaybe<ComponentRelPageFiltersInput>;
   enabled?: InputMaybe<BooleanFilterInput>;
+  header?: InputMaybe<BooleanFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   locale?: InputMaybe<StringFilterInput>;
   localizations?: InputMaybe<NavFiltersInput>;
@@ -1507,6 +1510,7 @@ export type NavInput = {
   builtin?: InputMaybe<ComponentPageBuiltInInput>;
   custom?: InputMaybe<ComponentRelPageInput>;
   enabled?: InputMaybe<Scalars['Boolean']>;
+  header?: InputMaybe<Scalars['Boolean']>;
   order?: InputMaybe<Scalars['Int']>;
   text?: InputMaybe<Scalars['String']>;
 };
@@ -1527,7 +1531,6 @@ export type Page = {
   static?: Maybe<ComponentPageContent>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
-
 
 export type PageLocalizationsArgs = {
   filters?: InputMaybe<PageFiltersInput>;
@@ -1606,7 +1609,6 @@ export type Post = {
   type: Enum_Post_Type;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
-
 
 export type PostLocalizationsArgs = {
   filters?: InputMaybe<PostFiltersInput>;
@@ -1692,14 +1694,14 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+  video?: Maybe<VideoEntityResponse>;
+  videos?: Maybe<VideoEntityResponseCollection>;
 };
-
 
 export type QueryBlockArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type QueryBlocksArgs = {
   filters?: InputMaybe<BlockFiltersInput>;
@@ -1708,12 +1710,10 @@ export type QueryBlocksArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryDocArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type QueryDocsArgs = {
   filters?: InputMaybe<DocFiltersInput>;
@@ -1722,12 +1722,10 @@ export type QueryDocsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryFaqArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type QueryFaqsArgs = {
   filters?: InputMaybe<FaqFiltersInput>;
@@ -1736,21 +1734,17 @@ export type QueryFaqsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryFooterArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type QueryHomeArgs = {
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-
 export type QueryI18NLocaleArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QueryI18NLocalesArgs = {
   filters?: InputMaybe<I18NLocaleFiltersInput>;
@@ -1758,11 +1752,9 @@ export type QueryI18NLocalesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryLangArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QueryLangsArgs = {
   filters?: InputMaybe<LangFiltersInput>;
@@ -1770,11 +1762,9 @@ export type QueryLangsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryMediaArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QueryMediasArgs = {
   filters?: InputMaybe<MediaFiltersInput>;
@@ -1782,12 +1772,10 @@ export type QueryMediasArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryNavArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type QueryNavsArgs = {
   filters?: InputMaybe<NavFiltersInput>;
@@ -1796,12 +1784,10 @@ export type QueryNavsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryPageArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type QueryPagesArgs = {
   filters?: InputMaybe<PageFiltersInput>;
@@ -1810,12 +1796,10 @@ export type QueryPagesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryPostArgs = {
   id?: InputMaybe<Scalars['ID']>;
   locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
-
 
 export type QueryPostsArgs = {
   filters?: InputMaybe<PostFiltersInput>;
@@ -1824,11 +1808,9 @@ export type QueryPostsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QuerySocialArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QuerySocialsArgs = {
   filters?: InputMaybe<SocialFiltersInput>;
@@ -1836,11 +1818,9 @@ export type QuerySocialsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryUploadFileArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QueryUploadFilesArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
@@ -1848,11 +1828,9 @@ export type QueryUploadFilesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryUploadFolderArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QueryUploadFoldersArgs = {
   filters?: InputMaybe<UploadFolderFiltersInput>;
@@ -1860,11 +1838,9 @@ export type QueryUploadFoldersArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryUsersPermissionsRoleArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
-
 
 export type QueryUsersPermissionsRolesArgs = {
   filters?: InputMaybe<UsersPermissionsRoleFiltersInput>;
@@ -1872,14 +1848,22 @@ export type QueryUsersPermissionsRolesArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-
 export type QueryUsersPermissionsUserArgs = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type QueryUsersPermissionsUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type QueryVideoArgs = {
+  id?: InputMaybe<Scalars['ID']>;
+};
+
+export type QueryVideosArgs = {
+  filters?: InputMaybe<VideoFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
@@ -2055,13 +2039,11 @@ export type UploadFolder = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-
 export type UploadFolderChildrenArgs = {
   filters?: InputMaybe<UploadFolderFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
-
 
 export type UploadFolderFilesArgs = {
   filters?: InputMaybe<UploadFileFiltersInput>;
@@ -2207,13 +2189,11 @@ export type UsersPermissionsRole = {
   users?: Maybe<UsersPermissionsUserRelationResponseCollection>;
 };
 
-
 export type UsersPermissionsRolePermissionsArgs = {
   filters?: InputMaybe<UsersPermissionsPermissionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
-
 
 export type UsersPermissionsRoleUsersArgs = {
   filters?: InputMaybe<UsersPermissionsUserFiltersInput>;
@@ -2327,4 +2307,42 @@ export type UsersPermissionsUserInput = {
 export type UsersPermissionsUserRelationResponseCollection = {
   __typename?: 'UsersPermissionsUserRelationResponseCollection';
   data: Array<UsersPermissionsUserEntity>;
+};
+
+export type Video = {
+  __typename?: 'Video';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  external?: Maybe<ComponentVideoExternal>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type VideoEntity = {
+  __typename?: 'VideoEntity';
+  attributes?: Maybe<Video>;
+  id?: Maybe<Scalars['ID']>;
+};
+
+export type VideoEntityResponse = {
+  __typename?: 'VideoEntityResponse';
+  data?: Maybe<VideoEntity>;
+};
+
+export type VideoEntityResponseCollection = {
+  __typename?: 'VideoEntityResponseCollection';
+  data: Array<VideoEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type VideoFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<VideoFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  external?: InputMaybe<ComponentVideoExternalFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<VideoFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<VideoFiltersInput>>>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type VideoInput = {
+  external?: InputMaybe<ComponentVideoExternalInput>;
 };

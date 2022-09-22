@@ -11,7 +11,36 @@ union DocFilesDynamicZone = ComponentLinkHref | Error
 
 union FooterLinksDynamicZone = ComponentLinkRoute | ComponentLinkSocial | Error
 
-union GenericMorph = Block | ComponentLinkHref | ComponentLinkRoute | ComponentLinkSocial | ComponentLinkText | ComponentPageBlog | ComponentPageBuiltIn | ComponentPageContent | ComponentRelBlock | ComponentRelPage | ComponentVideoYouTube | Doc | Faq | Footer | Home | I18NLocale | Lang | Media | Nav | Page | Post | Social | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union GenericMorph =
+    Block
+  | ComponentLinkHref
+  | ComponentLinkRoute
+  | ComponentLinkSocial
+  | ComponentLinkText
+  | ComponentPageBlog
+  | ComponentPageBuiltIn
+  | ComponentPageContent
+  | ComponentRelBlock
+  | ComponentRelPage
+  | ComponentVideoExternal
+  | Doc
+  | Faq
+  | Footer
+  | Home
+  | I18NLocale
+  | Lang
+  | Media
+  | Nav
+  | Page
+  | Post
+  | Program
+  | Social
+  | UploadFile
+  | UploadFolder
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsUser
+  | Video
 
 type Block {
   actions: [BlockActionsDynamicZone]
@@ -21,11 +50,14 @@ type Block {
   createdAt: DateTime
   image: UploadFileEntityResponse
   locale: String
-  localizations(filters: BlockFiltersInput, pagination: PaginationArg, sort: [String]): BlockRelationResponseCollection
+  localizations(
+    filters: BlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): BlockRelationResponseCollection
   name: String!
   type: ENUM_BLOCK_TYPE!
   updatedAt: DateTime
-  video: ComponentVideoYouTube
   width: Int
 }
 
@@ -50,6 +82,7 @@ type BlockRelationResponseCollection {
 type ComponentLinkHref {
   id: ID!
   style: ComponentLinkText
+  target: ENUM_COMPONENTLINKHREF_TARGET
   text: String!
   url: String!
 }
@@ -104,9 +137,11 @@ type ComponentRelPage {
   page: PageEntityResponse
 }
 
-type ComponentVideoYouTube {
+type ComponentVideoExternal {
+  code: String!
+  cover: UploadFileEntityResponse!
   id: ID!
-  url: String!
+  service: ENUM_COMPONENTVIDEOEXTERNAL_SERVICE!
 }
 
 type Doc {
@@ -114,7 +149,11 @@ type Doc {
   createdAt: DateTime
   files: [DocFilesDynamicZone]!
   locale: String
-  localizations(filters: DocFiltersInput, pagination: PaginationArg, sort: [String]): DocRelationResponseCollection
+  localizations(
+    filters: DocFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): DocRelationResponseCollection
   updatedAt: DateTime
 }
 
@@ -145,7 +184,11 @@ type Faq {
   answer: String!
   createdAt: DateTime
   locale: String
-  localizations(filters: FaqFiltersInput, pagination: PaginationArg, sort: [String]): FaqRelationResponseCollection
+  localizations(
+    filters: FaqFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): FaqRelationResponseCollection
   question: String!
   updatedAt: DateTime
 }
@@ -191,11 +234,19 @@ type FooterRelationResponseCollection {
 
 type Home {
   createdAt: DateTime
-  highlight(filters: ComponentRelBlockFiltersInput, pagination: PaginationArg, sort: [String]): [ComponentRelBlock]
+  highlight(
+    filters: ComponentRelBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): [ComponentRelBlock]
   locale: String
   localizations: HomeRelationResponseCollection
   main: ComponentRelBlock
-  other(filters: ComponentRelBlockFiltersInput, pagination: PaginationArg, sort: [String]): [ComponentRelBlock]
+  other(
+    filters: ComponentRelBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): [ComponentRelBlock]
   updatedAt: DateTime
 }
 
@@ -280,7 +331,11 @@ type MediaEntityResponseCollection {
 
 type Mutation {
   "Change user password. Confirm with the current password."
-  changePassword(currentPassword: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+  changePassword(
+    currentPassword: String!
+    password: String!
+    passwordConfirmation: String!
+  ): UsersPermissionsLoginPayload
   createBlock(data: BlockInput!, locale: I18NLocaleCode): BlockEntityResponse
   createBlockLocalization(data: BlockInput, id: ID, locale: I18NLocaleCode): BlockEntityResponse
   createDoc(data: DocInput!, locale: I18NLocaleCode): DocEntityResponse
@@ -297,6 +352,7 @@ type Mutation {
   createPageLocalization(data: PageInput, id: ID, locale: I18NLocaleCode): PageEntityResponse
   createPost(data: PostInput!, locale: I18NLocaleCode): PostEntityResponse
   createPostLocalization(data: PostInput, id: ID, locale: I18NLocaleCode): PostEntityResponse
+  createProgramLocalization(data: ProgramInput, id: ID, locale: I18NLocaleCode): ProgramEntityResponse
   createSocial(data: SocialInput!): SocialEntityResponse
   createUploadFile(data: UploadFileInput!): UploadFileEntityResponse
   createUploadFolder(data: UploadFolderInput!): UploadFolderEntityResponse
@@ -304,6 +360,7 @@ type Mutation {
   createUsersPermissionsRole(data: UsersPermissionsRoleInput!): UsersPermissionsCreateRolePayload
   "Create a new user"
   createUsersPermissionsUser(data: UsersPermissionsUserInput!): UsersPermissionsUserEntityResponse!
+  createVideo(data: VideoInput!): VideoEntityResponse
   deleteBlock(id: ID!, locale: I18NLocaleCode): BlockEntityResponse
   deleteDoc(id: ID!, locale: I18NLocaleCode): DocEntityResponse
   deleteFaq(id: ID!, locale: I18NLocaleCode): FaqEntityResponse
@@ -314,6 +371,7 @@ type Mutation {
   deleteNav(id: ID!, locale: I18NLocaleCode): NavEntityResponse
   deletePage(id: ID!, locale: I18NLocaleCode): PageEntityResponse
   deletePost(id: ID!, locale: I18NLocaleCode): PostEntityResponse
+  deleteProgram(locale: I18NLocaleCode): ProgramEntityResponse
   deleteSocial(id: ID!): SocialEntityResponse
   deleteUploadFile(id: ID!): UploadFileEntityResponse
   deleteUploadFolder(id: ID!): UploadFolderEntityResponse
@@ -321,6 +379,7 @@ type Mutation {
   deleteUsersPermissionsRole(id: ID!): UsersPermissionsDeleteRolePayload
   "Delete an existing user"
   deleteUsersPermissionsUser(id: ID!): UsersPermissionsUserEntityResponse!
+  deleteVideo(id: ID!): VideoEntityResponse
   "Confirm an email users email address"
   emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
   "Request a reset password token"
@@ -343,6 +402,7 @@ type Mutation {
   updateNav(data: NavInput!, id: ID!, locale: I18NLocaleCode): NavEntityResponse
   updatePage(data: PageInput!, id: ID!, locale: I18NLocaleCode): PageEntityResponse
   updatePost(data: PostInput!, id: ID!, locale: I18NLocaleCode): PostEntityResponse
+  updateProgram(data: ProgramInput!, locale: I18NLocaleCode): ProgramEntityResponse
   updateSocial(data: SocialInput!, id: ID!): SocialEntityResponse
   updateUploadFile(data: UploadFileInput!, id: ID!): UploadFileEntityResponse
   updateUploadFolder(data: UploadFolderInput!, id: ID!): UploadFolderEntityResponse
@@ -350,6 +410,7 @@ type Mutation {
   updateUsersPermissionsRole(data: UsersPermissionsRoleInput!, id: ID!): UsersPermissionsUpdateRolePayload
   "Update an existing user"
   updateUsersPermissionsUser(data: UsersPermissionsUserInput!, id: ID!): UsersPermissionsUserEntityResponse!
+  updateVideo(data: VideoInput!, id: ID!): VideoEntityResponse
   upload(field: String, file: Upload!, info: FileInfoInput, ref: String, refId: ID): UploadFileEntityResponse!
 }
 
@@ -357,8 +418,13 @@ type Nav {
   builtin: ComponentPageBuiltIn
   createdAt: DateTime
   custom: ComponentRelPage
+  header: Boolean!
   locale: String
-  localizations(filters: NavFiltersInput, pagination: PaginationArg, sort: [String]): NavRelationResponseCollection
+  localizations(
+    filters: NavFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): NavRelationResponseCollection
   text: String!
   updatedAt: DateTime
 }
@@ -385,7 +451,11 @@ type Page {
   blog: ComponentPageBlog
   createdAt: DateTime
   locale: String
-  localizations(filters: PageFiltersInput, pagination: PaginationArg, sort: [String]): PageRelationResponseCollection
+  localizations(
+    filters: PageFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PageRelationResponseCollection
   name: String!
   path: String!
   static: ComponentPageContent
@@ -422,7 +492,11 @@ type Post {
   createdAt: DateTime
   image: UploadFileEntityResponse
   locale: String
-  localizations(filters: PostFiltersInput, pagination: PaginationArg, sort: [String]): PostRelationResponseCollection
+  localizations(
+    filters: PostFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PostRelationResponseCollection
   short: String
   text: String!
   type: ENUM_POST_TYPE!
@@ -447,38 +521,120 @@ type PostRelationResponseCollection {
   data: [PostEntity!]!
 }
 
+type Program {
+  active(
+    filters: ComponentRelBlockFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): [ComponentRelBlock]
+  createdAt: DateTime
+  locale: String
+  localizations: ProgramRelationResponseCollection
+  updatedAt: DateTime
+}
+
+type ProgramEntity {
+  attributes: Program
+  id: ID
+}
+
+type ProgramEntityResponse {
+  data: ProgramEntity
+}
+
+type ProgramRelationResponseCollection {
+  data: [ProgramEntity!]!
+}
+
 type Query {
   block(id: ID, locale: I18NLocaleCode): BlockEntityResponse
-  blocks(filters: BlockFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): BlockEntityResponseCollection
+  blocks(
+    filters: BlockFiltersInput
+    locale: I18NLocaleCode
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): BlockEntityResponseCollection
   doc(id: ID, locale: I18NLocaleCode): DocEntityResponse
-  docs(filters: DocFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): DocEntityResponseCollection
+  docs(
+    filters: DocFiltersInput
+    locale: I18NLocaleCode
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): DocEntityResponseCollection
   faq(id: ID, locale: I18NLocaleCode): FaqEntityResponse
-  faqs(filters: FaqFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): FaqEntityResponseCollection
+  faqs(
+    filters: FaqFiltersInput
+    locale: I18NLocaleCode
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): FaqEntityResponseCollection
   footer(locale: I18NLocaleCode): FooterEntityResponse
   home(locale: I18NLocaleCode): HomeEntityResponse
   i18NLocale(id: ID): I18NLocaleEntityResponse
-  i18NLocales(filters: I18NLocaleFiltersInput, pagination: PaginationArg, sort: [String]): I18NLocaleEntityResponseCollection
+  i18NLocales(
+    filters: I18NLocaleFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): I18NLocaleEntityResponseCollection
   lang(id: ID): LangEntityResponse
-  langs(filters: LangFiltersInput, pagination: PaginationArg, sort: [String]): LangEntityResponseCollection
+  langs(filters: LangFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): LangEntityResponseCollection
   me: UsersPermissionsMe
   media(id: ID): MediaEntityResponse
-  medias(filters: MediaFiltersInput, pagination: PaginationArg, sort: [String]): MediaEntityResponseCollection
+  medias(filters: MediaFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): MediaEntityResponseCollection
   nav(id: ID, locale: I18NLocaleCode): NavEntityResponse
-  navs(filters: NavFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): NavEntityResponseCollection
+  navs(
+    filters: NavFiltersInput
+    locale: I18NLocaleCode
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): NavEntityResponseCollection
   page(id: ID, locale: I18NLocaleCode): PageEntityResponse
-  pages(filters: PageFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): PageEntityResponseCollection
+  pages(
+    filters: PageFiltersInput
+    locale: I18NLocaleCode
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PageEntityResponseCollection
   post(id: ID, locale: I18NLocaleCode): PostEntityResponse
-  posts(filters: PostFiltersInput, locale: I18NLocaleCode, pagination: PaginationArg, sort: [String]): PostEntityResponseCollection
+  posts(
+    filters: PostFiltersInput
+    locale: I18NLocaleCode
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): PostEntityResponseCollection
+  program(locale: I18NLocaleCode): ProgramEntityResponse
   social(id: ID): SocialEntityResponse
-  socials(filters: SocialFiltersInput, pagination: PaginationArg, sort: [String]): SocialEntityResponseCollection
+  socials(
+    filters: SocialFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): SocialEntityResponseCollection
   uploadFile(id: ID): UploadFileEntityResponse
-  uploadFiles(filters: UploadFileFiltersInput, pagination: PaginationArg, sort: [String]): UploadFileEntityResponseCollection
+  uploadFiles(
+    filters: UploadFileFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFileEntityResponseCollection
   uploadFolder(id: ID): UploadFolderEntityResponse
-  uploadFolders(filters: UploadFolderFiltersInput, pagination: PaginationArg, sort: [String]): UploadFolderEntityResponseCollection
+  uploadFolders(
+    filters: UploadFolderFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFolderEntityResponseCollection
   usersPermissionsRole(id: ID): UsersPermissionsRoleEntityResponse
-  usersPermissionsRoles(filters: UsersPermissionsRoleFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsRoleEntityResponseCollection
+  usersPermissionsRoles(
+    filters: UsersPermissionsRoleFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsRoleEntityResponseCollection
   usersPermissionsUser(id: ID): UsersPermissionsUserEntityResponse
-  usersPermissionsUsers(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsUserEntityResponseCollection
+  usersPermissionsUsers(
+    filters: UsersPermissionsUserFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsUserEntityResponseCollection
+  video(id: ID): VideoEntityResponse
+  videos(filters: VideoFiltersInput, pagination: PaginationArg = {}, sort: [String] = []): VideoEntityResponseCollection
 }
 
 type ResponseCollectionMeta {
@@ -546,9 +702,17 @@ type UploadFileRelationResponseCollection {
 }
 
 type UploadFolder {
-  children(filters: UploadFolderFiltersInput, pagination: PaginationArg, sort: [String]): UploadFolderRelationResponseCollection
+  children(
+    filters: UploadFolderFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFolderRelationResponseCollection
   createdAt: DateTime
-  files(filters: UploadFileFiltersInput, pagination: PaginationArg, sort: [String]): UploadFileRelationResponseCollection
+  files(
+    filters: UploadFileFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFileRelationResponseCollection
   name: String!
   parent: UploadFolderEntityResponse
   path: String!
@@ -627,10 +791,18 @@ type UsersPermissionsRole {
   createdAt: DateTime
   description: String
   name: String!
-  permissions(filters: UsersPermissionsPermissionFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsPermissionRelationResponseCollection
+  permissions(
+    filters: UsersPermissionsPermissionFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsPermissionRelationResponseCollection
   type: String
   updatedAt: DateTime
-  users(filters: UsersPermissionsUserFiltersInput, pagination: PaginationArg, sort: [String]): UsersPermissionsUserRelationResponseCollection
+  users(
+    filters: UsersPermissionsUserFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsUserRelationResponseCollection
 }
 
 type UsersPermissionsRoleEntity {
@@ -680,6 +852,26 @@ type UsersPermissionsUserRelationResponseCollection {
   data: [UsersPermissionsUserEntity!]!
 }
 
+type Video {
+  createdAt: DateTime
+  external: ComponentVideoExternal
+  updatedAt: DateTime
+}
+
+type VideoEntity {
+  attributes: Video
+  id: ID
+}
+
+type VideoEntityResponse {
+  data: VideoEntity
+}
+
+type VideoEntityResponseCollection {
+  data: [VideoEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
 enum ENUM_BLOCK_ALIGN_ACTIONS {
   center
   left
@@ -695,6 +887,11 @@ enum ENUM_BLOCK_ALIGN_CONTENT {
 enum ENUM_BLOCK_TYPE {
   Cover
   Side
+}
+
+enum ENUM_COMPONENTLINKHREF_TARGET {
+  Blank
+  Self
 }
 
 enum ENUM_COMPONENTLINKTEXT_BACKGROUND {
@@ -932,6 +1129,11 @@ enum ENUM_COMPONENTPAGEBUILTIN_NAME {
   documents
   faq
   media
+  videos
+}
+
+enum ENUM_COMPONENTVIDEOEXTERNAL_SERVICE {
+  YouTube
 }
 
 enum ENUM_POST_TYPE {
@@ -971,7 +1173,6 @@ input BlockFiltersInput {
   or: [BlockFiltersInput]
   type: StringFilterInput
   updatedAt: DateTimeFilterInput
-  video: ComponentVideoYouTubeFiltersInput
   width: IntFilterInput
 }
 
@@ -983,7 +1184,6 @@ input BlockInput {
   image: ID
   name: String
   type: ENUM_BLOCK_TYPE
-  video: ComponentVideoYouTubeInput
   width: Int
 }
 
@@ -1016,6 +1216,7 @@ input ComponentLinkHrefFiltersInput {
   not: ComponentLinkHrefFiltersInput
   or: [ComponentLinkHrefFiltersInput]
   style: ComponentLinkTextFiltersInput
+  target: StringFilterInput
   text: StringFilterInput
   url: StringFilterInput
 }
@@ -1023,6 +1224,7 @@ input ComponentLinkHrefFiltersInput {
 input ComponentLinkHrefInput {
   id: ID
   style: ComponentLinkTextInput
+  target: ENUM_COMPONENTLINKHREF_TARGET
   text: String
   url: String
 }
@@ -1107,16 +1309,19 @@ input ComponentRelPageInput {
   page: ID
 }
 
-input ComponentVideoYouTubeFiltersInput {
-  and: [ComponentVideoYouTubeFiltersInput]
-  not: ComponentVideoYouTubeFiltersInput
-  or: [ComponentVideoYouTubeFiltersInput]
-  url: StringFilterInput
+input ComponentVideoExternalFiltersInput {
+  and: [ComponentVideoExternalFiltersInput]
+  code: StringFilterInput
+  not: ComponentVideoExternalFiltersInput
+  or: [ComponentVideoExternalFiltersInput]
+  service: StringFilterInput
 }
 
-input ComponentVideoYouTubeInput {
+input ComponentVideoExternalInput {
+  code: String
+  cover: ID
   id: ID
-  url: String
+  service: ENUM_COMPONENTVIDEOEXTERNAL_SERVICE
 }
 
 input DateTimeFilterInput {
@@ -1350,6 +1555,7 @@ input NavFiltersInput {
   createdAt: DateTimeFilterInput
   custom: ComponentRelPageFiltersInput
   enabled: BooleanFilterInput
+  header: BooleanFilterInput
   id: IDFilterInput
   locale: StringFilterInput
   localizations: NavFiltersInput
@@ -1364,6 +1570,7 @@ input NavInput {
   builtin: ComponentPageBuiltInInput
   custom: ComponentRelPageInput
   enabled: Boolean
+  header: Boolean
   order: Int
   text: String
 }
@@ -1418,6 +1625,10 @@ input PostInput {
   short: String
   text: String
   type: ENUM_POST_TYPE
+}
+
+input ProgramInput {
+  active: [ComponentRelBlockInput]
 }
 
 input SocialFiltersInput {
@@ -1532,7 +1743,7 @@ input UploadFolderInput {
 input UsersPermissionsLoginInput {
   identifier: String!
   password: String!
-  provider: String!
+  provider: String! = "local"
 }
 
 input UsersPermissionsPermissionFiltersInput {
@@ -1602,4 +1813,18 @@ input UsersPermissionsUserInput {
   resetPasswordToken: String
   role: ID
   username: String
+}
+
+input VideoFiltersInput {
+  and: [VideoFiltersInput]
+  createdAt: DateTimeFilterInput
+  external: ComponentVideoExternalFiltersInput
+  id: IDFilterInput
+  not: VideoFiltersInput
+  or: [VideoFiltersInput]
+  updatedAt: DateTimeFilterInput
+}
+
+input VideoInput {
+  external: ComponentVideoExternalInput
 }

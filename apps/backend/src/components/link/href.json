@@ -19,6 +19,10 @@
       "type": "component",
       "repeatable": false,
       "component": "link.text"
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["Self", "Blank"]
     }
   }
 }

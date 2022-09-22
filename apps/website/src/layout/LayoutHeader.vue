@@ -6,13 +6,10 @@
       :flat="true",
       :icon="mdiMenu",
       @click="drawer = !drawer")
-    .layout-header__logo
-      router-link(
-        :to="{ name: 'home' }",
-        v-html="Logo")
-    .layout-header__nav.q-pl-lg
+    .layout-header__nav.q-pl-sm
       layout-navigation
-    .layout-header__lang.q-pl-lg
+    .layout-header__block.q-pl-xs
+      layout-wallet
       layout-language
   layout-drawer(v-model="drawer")
 </template>
@@ -20,8 +17,8 @@
 <script lang="ts" setup>
   import { inject } from 'vue';
   import { mdiMenu } from '@mdi/js';
-  import Logo from '#/assets/logo.svg?raw';
   import LayoutDrawer from './LayoutDrawer.vue';
+  import LayoutWallet from './LayoutWallet.vue';
   import LayoutLanguage from './LayoutLanguage.vue';
   import LayoutNavigation from './LayoutNavigation.vue';
 
@@ -58,31 +55,12 @@
         +absolute(100% 0 null 0)
         border-top: 1px solid $border-color
 
-    &__menu
-      margin: 0 $offset 0 $offset * -1
-
-      +media('>=md')
-        display: none
-
-    &__lang
+    &__block
+      gap: $offset * 0.5
       flex-grow: 1
       +flex-row(flex-end)
 
     &__nav
       +media('<=md')
         display: none
-
-    &__logo
-      :deep(svg)
-        +size(60px)
-
-      :deep(a),
-      :deep(path),
-      :deep(text),
-      :deep(ellipse)
-        fill: currentColor
-        color: currentColor
-
-      :deep(circle)
-        stroke: currentColor
 </style>

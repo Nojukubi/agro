@@ -3,6 +3,7 @@
 fragment LinkHref on ComponentLinkHref {
   url
   text
+  target
   style {
     ...LinkText
   }

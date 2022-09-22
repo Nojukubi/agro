@@ -1,0 +1,11 @@
+#import ../file/entity.gql
+
+fragment Video on Video {
+  external {
+    service
+    code
+    cover {
+      ...FileWrapper
+    }
+  }
+}

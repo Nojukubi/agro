@@ -5,7 +5,7 @@
     q-card-section.text-body2(
       v-if="data.content",
       v-html="data.content")
-    q-card-actions.q-gutter-md.q-px-md.q-pt-none.q-pb-md
+    q-card-actions.q-px-md.q-pt-none.q-pb-md
       template(v-for="action in data.actions")
         base-link(:link="action")
 </template>

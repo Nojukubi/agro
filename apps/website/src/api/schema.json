@@ -6,10 +6,7 @@
       "ComponentLinkSocial",
       "Error"
     ],
-    "DocFilesDynamicZone": [
-      "ComponentLinkHref",
-      "Error"
-    ],
+    "DocFilesDynamicZone": ["ComponentLinkHref", "Error"],
     "FooterLinksDynamicZone": [
       "ComponentLinkRoute",
       "ComponentLinkSocial",
@@ -26,7 +23,7 @@
       "ComponentPageContent",
       "ComponentRelBlock",
       "ComponentRelPage",
-      "ComponentVideoYouTube",
+      "ComponentVideoExternal",
       "Doc",
       "Faq",
       "Footer",
@@ -42,7 +39,8 @@
       "UploadFolder",
       "UsersPermissionsPermission",
       "UsersPermissionsRole",
-      "UsersPermissionsUser"
+      "UsersPermissionsUser",
+      "Video"
     ]
   }
 }

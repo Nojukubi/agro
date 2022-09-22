@@ -4,16 +4,23 @@
     layout-footer(v-if="navs.length")
     q-page-container
       q-page.app__page
-        RouterView(:key="route.fullPath")
+        router-view(
+          :key="route.fullPath",
+          v-slot="{ Component }")
+          component(
+            v-if="Component",
+            :is="Component")
+          base-loading(v-else)
 </template>
 
 <script lang="ts" setup>
   import { useRoute } from 'vue-router';
   import { ref, provide, watch } from 'vue';
-  import LayoutHeader from './layout/LayoutHeader.vue';
-  import { getLanguage } from './helpers/language';
   import { useConfigQuery } from './api/query';
-  import LayoutFooter from '#/layout/LayoutFooter.vue';
+  import { getLanguage } from './helpers/language';
+  import BaseLoading from '#/base/BaseLoading.vue';
+  import LayoutHeader from './layout/LayoutHeader.vue';
+  import LayoutFooter from './layout/LayoutFooter.vue';
   import type { RouteLocationNormalized } from 'vue-router';
 
   // Define the props.
@@ -32,9 +39,11 @@
 
   // Globally provide interface language.
   provide('language', $$(language));
-  // Globally provide available navs.
+
+  // Globally provide available navigation.
   provide('availableNavs', $$(navs));
-  // Globally provide available langs.
+
+  // Globally provide available languages.
   provide('availableLangs', $$(langs));
 
   // Provide the different header themes based on url.

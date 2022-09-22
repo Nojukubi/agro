@@ -1,6 +1,7 @@
 <template lang="pug">
   .home-view(v-if="isQueryReady")
     q-scroll-observer(@scroll="scrollHandler")
+
     home-banner(
       v-if="banner",
       :banner="banner")
@@ -12,7 +13,7 @@
     template(
       v-for="banner in other",
       :key="banner.name")
-      .q-py-lg(v-if="banner")
+      #other.q-py-lg(v-if="banner")
         BaseBanner(:data="banner")
 
     base-grid.q-ma-lg(:columns="2")

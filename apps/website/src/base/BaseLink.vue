@@ -3,9 +3,9 @@
     :square="true",
     :unelevated="true",
     :label="link.text",
-    :color="link.style.background",
-    :no-caps="!link.style.uppercase",
-    :text-color="link.style.color",
+    :color="link.style?.background",
+    :no-caps="!link.style?.uppercase",
+    :text-color="link.style?.color",
     v-bind="getDynamicAttr(link)")
 </template>
 
@@ -27,7 +27,7 @@
     // Create the common base attrs.
     const attrs: Record<string, any> = {
       class: {
-        'base-link--underline': link.style.underline
+        'base-link--underline': link.style?.underline
       }
     };
 
@@ -46,7 +46,7 @@
 
   // Create the href specific attrs based on the link.
   function getLinkHrefAttr(link: LinkHref) {
-    return { target: '__blank', href: link.url };
+    return { target: link.target === 'Self' ? null : '__blank', href: link.url };
   }
 
   // Create the route specific attrs based on the link.
@@ -63,6 +63,8 @@
 </script>
 
 <style lang="sass" scoped>
+  @use '#/styles/vars' as *
+
   .base-link
     &--underline
       text-decoration: underline
@@ -70,4 +72,7 @@
 
     &--center
       justify-self: center
+
+    :deep(.q-icon.on-left)
+      margin-right: $offset * 0.75
 </style>

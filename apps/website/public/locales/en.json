@@ -5,6 +5,13 @@
   "nav": {
     "home": "Home"
   },
+  "wallet": {
+    "action": "Buy tokens",
+    "price": "Current price: {0}",
+    "progress": "Calculation",
+    "range": "Sold {0} out of {1}",
+    "title": "AGTI tokens"
+  },
   "views": {
     "docs": {
       "title": "Documents"

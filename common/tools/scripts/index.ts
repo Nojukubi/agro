@@ -16,7 +16,7 @@ const spawnOptions: SpawnOptions = {
 // Run the command to start the dev server.
 if (name === 'dev') execVite(['--host']);
 // Run the command to start the prod server.
-else if (name === 'prod') execVite(['preview']);
+else if (name === 'prod') execVite(['preview', '--host']);
 // Run the command to validate code with eslint.
 else if (name === 'lint') execEslint();
 // Run the command to build with type checking.

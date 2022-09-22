@@ -3,6 +3,7 @@
 
 fragment Nav on Nav {
   text
+  header
   custom {
     ...PageCustom
   }

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "bin": {
-    "tool": "./index.js"
+    "tool": "index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -12,9 +12,9 @@
   "dependencies": {
     "@internal/eslint": "0.0.0",
     "npm-which": "^3.0.1",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.6",
-    "vue-tsc": "^0.40.1"
+    "typescript": "^4.8.3",
+    "vite": "^3.1.3",
+    "vue-tsc": "^0.40.13"
   },
   "devDependencies": {
     "@types/npm-which": "^3.0.1",
